@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Define;
+using Unity.Entities;
 using Unity.Mathematics;
 
 namespace Script.MusicNode
@@ -7,6 +8,6 @@ namespace Script.MusicNode
 
     public struct MusicNodeAuthoring : IComponentData
     {
-        public float3 StartPosition;
+        public MusicNodeInfo NodeInfo;
     }
 }

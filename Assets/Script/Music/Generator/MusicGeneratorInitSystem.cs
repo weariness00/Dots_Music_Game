@@ -24,10 +24,11 @@ namespace Script.Music.Generator
         {
             var ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
             var entity = SystemAPI.GetSingletonEntity<MusicGeneratorInitTag>();
+            ecb.AddBuffer<MusicScriptableObjectData>(entity);
             var nodeEntities = ecb.AddBuffer<MusicGeneratorNodeEntities>(entity);
             foreach (var objects in SystemAPI.Query<MusicGeneratorNodeObjects>())
             {
-                foreach (var node in objects.entities)
+                foreach (var node in objects.Entities)
                 {
                     nodeEntities.Add(new MusicGeneratorNodeEntities(){Entity = node});
                 }

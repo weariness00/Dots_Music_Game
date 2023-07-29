@@ -21,7 +21,7 @@ namespace Script.Music.Generator
             Entity[] entities = new Entity[authoring.nodeObjects.Length];
             for (int i = 0; i < authoring.nodeObjects.Length; i++)
                 entities[i] = GetEntity(authoring.nodeObjects[i], TransformUsageFlags.Dynamic);
-            AddComponentObject(entity, new MusicGeneratorNodeObjects(){ entities = entities});
+            AddComponentObject(entity, new MusicGeneratorNodeObjects(){ Entities = entities});
         }
     }
 }

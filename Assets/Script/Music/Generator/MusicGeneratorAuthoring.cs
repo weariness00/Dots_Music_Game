@@ -1,4 +1,5 @@
-﻿using Unity.Collections;
+﻿using Define;
+using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
@@ -14,6 +15,11 @@ namespace Script.Music.Generator
 
     public class MusicGeneratorNodeObjects : IComponentData
     {
-        public Entity[] entities;
+        public Entity[] Entities;
+    }
+
+    public struct MusicScriptableObjectData : IBufferElementData
+    {
+        public MusicNodeInfo NodeInfo;
     }
 }

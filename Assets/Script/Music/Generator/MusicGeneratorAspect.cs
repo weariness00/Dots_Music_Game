@@ -7,5 +7,6 @@ namespace Script.Music.Generator
         public readonly Entity Entity;
 
         public readonly DynamicBuffer<MusicGeneratorNodeEntities> NodeEntities;
+        public readonly DynamicBuffer<MusicScriptableObjectData> NodeListScriptableObject;
     }
 }
