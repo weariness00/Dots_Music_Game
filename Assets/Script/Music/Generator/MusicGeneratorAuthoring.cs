@@ -1,7 +1,6 @@
 ﻿using Define;
-using Unity.Collections;
 using Unity.Entities;
-using UnityEngine;
+using UnityEngine.UI;
 
 namespace Script.Music.Generator
 {
@@ -12,7 +11,6 @@ namespace Script.Music.Generator
     {
         public Entity Entity;
     }
-
     public class MusicGeneratorNodeObjects : IComponentData
     {
         public Entity[] Entities;

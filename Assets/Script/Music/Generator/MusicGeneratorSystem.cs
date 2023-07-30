@@ -84,7 +84,7 @@ namespace Script.Music.Generator
                 };
 
                 generatorAspect.NodeListScriptableObject.Add( new MusicScriptableObjectData() { NodeInfo = nodeInfo });
-                ecb.AddComponent(newNodeEntity, new MusicNodeAuthoring(){NodeInfo = nodeInfo});
+                ecb.SetComponent(newNodeEntity, new MusicNodeAuthoring(){NodeInfo = nodeInfo});
             }
         }
     }

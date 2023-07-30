@@ -1,6 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Script.Music.Generator
 {
@@ -15,7 +16,7 @@ namespace Script.Music.Generator
         {
             var entity = GetEntity(authoring.gameObject, TransformUsageFlags.Dynamic);
 
-            AddComponent<MusicGeneratorInitTag>(entity);
+            AddComponent<MusicGeneratorInitTag>(entity);   
             AddComponent<MusicGeneratorTag>(entity);
 
             Entity[] entities = new Entity[authoring.nodeObjects.Length];
