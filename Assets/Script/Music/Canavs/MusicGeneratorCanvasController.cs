@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Define;
+﻿using Define;
 using Script.Music.Generator;
 using TMPro;
 using Unity.Entities;

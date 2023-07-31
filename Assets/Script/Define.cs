@@ -1,4 +1,5 @@
 ﻿
+using Unity.Entities;
 using Unity.Mathematics;
 
 namespace Define
@@ -8,5 +9,11 @@ namespace Define
     {
         public int NodeEntityTypeIndex;
         public float3 StartPosition;
+        public float LenthToDestination;
+    }
+
+    public struct CurrentTime : IComponentData
+    {
+        public float Time;
     }
 }

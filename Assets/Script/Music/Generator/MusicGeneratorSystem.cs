@@ -69,6 +69,13 @@ namespace Script.Music.Generator
                 int entityIndex = 0;
                 var entityType = generatorAspect.NodeEntities[entityIndex].Entity;
                 var newNodeEntity = ecb.Instantiate(entityType);
+                
+                switch (entityIndex)    // index에 따른 태그 부여
+                {
+                    case 0:
+                        ecb.AddComponent<MusicNodeCubeTag>(newNodeEntity);
+                        break;
+                }
                 LocalTransform newNodeTransform = new LocalTransform()
                 {
                     Position = clickPosition,
@@ -81,6 +88,7 @@ namespace Script.Music.Generator
                 {
                     NodeEntityTypeIndex = entityIndex,
                     StartPosition = clickPosition,
+                    LenthToDestination = math.distance(clickPosition, float3.zero),
                 };
 
                 generatorAspect.NodeListScriptableObject.Add( new MusicScriptableObjectData() { NodeInfo = nodeInfo });
