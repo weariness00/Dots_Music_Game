@@ -1,4 +1,6 @@
-﻿using Define;
+﻿using System;
+using Define;
+using Script.JudgPanel;
 using Script.Music.Generator;
 using TMPro;
 using Unity.Entities;
@@ -48,6 +50,11 @@ namespace Script.Music.Canavs
             
             _entityManager.AddComponent<MusicLoadTag>(_entity);
             _entityManager.AddComponentObject(_entity, new MusicLoadAuthoring(){MusicScriptableObject = musicData});
+        }
+
+        public void JudgPanelType(Int32 index)
+        {
+            _entityManager.SetComponentData(_entity, new MusicGeneratorPanelTypeAuthoring(){PanelType = (JudgPanelType)index});
         }
     }
 }

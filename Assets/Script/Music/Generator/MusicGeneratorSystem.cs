@@ -1,4 +1,6 @@
-﻿using Define;
+﻿using System;
+using Define;
+using Script.JudgPanel;
 using Script.MusicNode;
 using Unity.Burst;
 using Unity.Entities;
@@ -83,10 +85,26 @@ namespace Script.Music.Generator
                     Scale = 1,
                 };
                 ecb.SetComponent(newNodeEntity, newNodeTransform);
+
+                switch (generatorAspect.JudgPanelType)
+                {
+                    case JudgPanelType.Pistol:
+                        ecb.AddComponent<PistolNodeTag>(newNodeEntity);
+                        break;
+                    case JudgPanelType.Rifle:
+                        ecb.AddComponent<RifleNodeTag>(newNodeEntity);
+                        break;
+                    case JudgPanelType.Sniper:
+                        ecb.AddComponent<SniperNodeTag>(newNodeEntity);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 
                 var nodeInfo = new MusicNodeInfo()
                 {
                     NodeEntityTypeIndex = entityIndex,
+                    JudgPanelType = generatorAspect.JudgPanelType,
                     StartPosition = clickPosition,
                     LenthToDestination = math.distance(clickPosition, float3.zero),
                 };

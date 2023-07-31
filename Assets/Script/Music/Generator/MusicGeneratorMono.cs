@@ -18,6 +18,8 @@ namespace Script.Music.Generator
 
             AddComponent<MusicGeneratorInitTag>(entity);   
             AddComponent<MusicGeneratorTag>(entity);
+            
+            AddComponent(entity, new MusicGeneratorPanelTypeAuthoring(){PanelType = 0});
 
             Entity[] entities = new Entity[authoring.nodeObjects.Length];
             for (int i = 0; i < authoring.nodeObjects.Length; i++)

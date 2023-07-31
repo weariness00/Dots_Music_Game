@@ -1,4 +1,5 @@
 ﻿using Define;
+using Script.JudgPanel;
 using Unity.Entities;
 using UnityEngine.UI;
 
@@ -6,6 +7,11 @@ namespace Script.Music.Generator
 {
     public struct MusicGeneratorInitTag : IComponentData {}
     public struct MusicGeneratorTag : IComponentData{}
+
+    public struct MusicGeneratorPanelTypeAuthoring : IComponentData
+    {
+        public JudgPanelType PanelType;
+    }
     
     public struct MusicGeneratorNodeEntities : IBufferElementData
     {

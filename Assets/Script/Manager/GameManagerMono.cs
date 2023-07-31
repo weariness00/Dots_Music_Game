@@ -5,7 +5,6 @@ namespace Script.Manager
 {
     public class GameManagerMono : MonoBehaviour
     {
-        
     }
     
     public class GameManagerBaker : Baker<GameManagerMono>
@@ -13,7 +12,6 @@ namespace Script.Manager
         public override void Bake(GameManagerMono authoring)
         {
             var entity = GetEntity(authoring.gameObject, TransformUsageFlags.Dynamic);
-            
             AddComponent<GameManagerTag>(entity);
         }
     }
