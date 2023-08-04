@@ -5,7 +5,7 @@ using Unity.Physics;
 
 namespace Script.JudgPanel
 {
-    public partial struct JudgPanelSystem : ISystem
+    public partial struct JudgPanelCollisionSystem : ISystem
     {
         [BurstCompile]
         public void OnCreate(ref SystemState state)
@@ -41,6 +41,7 @@ namespace Script.JudgPanel
             };
 
             state.Dependency = judgCollisionJob.Schedule(SystemAPI.GetSingleton<SimulationSingleton>(), state.Dependency);
+            state.Dependency.Complete();
         }
     }
 }

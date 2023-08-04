@@ -1,4 +1,5 @@
-﻿using Define;
+﻿using System;
+using Define;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -7,7 +8,6 @@ namespace Script.MusicNode
 {
     public class MusicNodeMono : MonoBehaviour
     {
-    
     }
     
     public class MusicNodeBaker : Baker<MusicNodeMono>

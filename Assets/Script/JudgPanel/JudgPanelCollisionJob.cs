@@ -1,9 +1,12 @@
 ﻿using Script.MusicNode;
+using Unity.Burst;
 using Unity.Entities;
 using Unity.Physics;
+using UnityEngine;
 
 namespace Script.JudgPanel
 {
+    [BurstCompile]
     public struct JudgPanelCollisionJob : ICollisionEventsJob
     {
         public EntityCommandBuffer ECB;
@@ -26,9 +29,11 @@ namespace Script.JudgPanel
      
             ECB.DestroyEntity(entityA);
         }
-        
+    
         public void Execute(CollisionEvent collisionEvent)
         {
+            Debug.Log("체크");
+            
             var entityA = collisionEvent.EntityA;
             var entityB = collisionEvent.EntityB;
 
