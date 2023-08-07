@@ -9,7 +9,7 @@ namespace Script.MusicNode
     {
         public readonly Entity Entity;
 
-        private readonly RefRO<MusicNodeTag> _tag;
+        public readonly RefRO<MusicNodeTag> Tag;    
 
         public readonly RefRW<LocalTransform> Transform;
         public readonly RefRW<MusicNodeAuthoring> MusicNodeAuthoring;

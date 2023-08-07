@@ -9,7 +9,6 @@ namespace Script.Music
 {
     public partial struct MusicLoadSystem : ISystem
     {
-        [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<MusicGeneratorTag>();
@@ -23,7 +22,6 @@ namespace Script.Music
             
         }
 
-        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var entity = SystemAPI.GetSingletonEntity<MusicLoadTag>();

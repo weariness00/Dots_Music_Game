@@ -13,6 +13,9 @@ namespace Script.Music.Generator
 {
     public partial struct MusicGeneratorSystem : ISystem
     {
+        [BurstCompile(CompileSynchronously = true)]
+        Camera GetCamera() => Camera.main;
+        
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
@@ -26,7 +29,6 @@ namespace Script.Music.Generator
         {
         }
 
-        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             if (Input.GetMouseButtonDown(0) == false)
@@ -36,7 +38,7 @@ namespace Script.Music.Generator
             var entity = SystemAPI.GetSingletonEntity<MusicGeneratorTag>();
             var generatorAspect = SystemAPI.GetAspect<MusicGeneratorAspect>(entity);
 
-            var main = Camera.main;
+            var main = GetCamera();
             Vector3 mousePosition = main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, main.nearClipPlane));
             Vector3 cameraPosition = main.transform.position;
             float3 clickDirection = mousePosition - cameraPosition;
