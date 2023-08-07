@@ -13,9 +13,15 @@ namespace Script.MusicNode
 
         public readonly RefRW<LocalTransform> Transform;
         public readonly RefRW<MusicNodeAuthoring> MusicNodeAuthoring;
-        private float LenthToZero => MusicNodeAuthoring.ValueRO.NodeInfo.LenthToDestination;
+
+        public int Order
+        {
+            get => MusicNodeAuthoring.ValueRO.NodeInfo.order;
+            set => MusicNodeAuthoring.ValueRW.NodeInfo.order = value;
+        }
+        public float LenthToZero => MusicNodeAuthoring.ValueRO.NodeInfo.LenthToDestination;
         private float3 StartPosition => MusicNodeAuthoring.ValueRO.NodeInfo.StartPosition;
-        
+
         private readonly RefRW<CurrentTime> _currentTime;
         private float CurrentTime
         {

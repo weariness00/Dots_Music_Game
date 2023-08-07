@@ -8,6 +8,7 @@ namespace Script.MusicNode
     public struct RifleNodeTag : IComponentData{}
     public struct SniperNodeTag : IComponentData{}
     public struct MusicNodeCubeTag : IComponentData {}
+    public struct MusicNodeRemoveTag : IComponentData {}
 
     public struct MusicNodeAuthoring : IComponentData
     {

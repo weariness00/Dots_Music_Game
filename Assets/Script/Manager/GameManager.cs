@@ -26,7 +26,7 @@ namespace Script.Manager
 
         public void MusicStart()
         {
-            _entityManager.AddComponent<MusicStartTag>(_entity);
+            _entityManager.SetComponentEnabled<MusicStartTag>(_entity, true);
         }
     }
 }

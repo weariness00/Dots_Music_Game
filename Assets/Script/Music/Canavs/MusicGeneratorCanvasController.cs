@@ -3,6 +3,7 @@ using Define;
 using Script.JudgPanel;
 using Script.Music.Generator;
 using TMPro;
+using Unity.Collections;
 using Unity.Entities;
 using UnityEditor;
 using UnityEngine;
@@ -26,12 +27,17 @@ namespace Script.Music.Canavs
 
         public void MusicSave()
         {
-            var musicData = _entityManager.GetBuffer<MusicScriptableObjectData>(_entity);
+            var musicData = _entityManager.GetBuffer<MusicScriptableObjectData>(_entity).AsNativeArray();
+            musicData.Sort(new MusicNodeLenthToDestinationSort());
             
             var musicScriptableObject = ScriptableObject.CreateInstance<MusicScriptableObject>();
             musicScriptableObject.NodeList = new MusicNodeInfo[musicData.Length];
+
             for (int i = 0; i < musicData.Length; i++)
+            {
                 musicScriptableObject.NodeList[i] = musicData[i].NodeInfo;
+                musicScriptableObject.NodeList[i].order = i;
+            }
             
             var curPath = $"{path}/{nameField.text}.asset";
             AssetDatabase.CreateAsset(musicScriptableObject, curPath);

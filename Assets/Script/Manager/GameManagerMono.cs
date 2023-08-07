@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Script.Music;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Script.Manager
@@ -13,6 +14,14 @@ namespace Script.Manager
         {
             var entity = GetEntity(authoring.gameObject, TransformUsageFlags.Dynamic);
             AddComponent<GameManagerTag>(entity);
+            AddComponent<MusicStartTag>(entity);
+            AddComponent(entity, new GameManagerAuthoring()
+            {
+                Score = 0,
+                Combo = 0,
+            });
+            
+            SetComponentEnabled<MusicStartTag>(entity,false);
         }
     }
 }

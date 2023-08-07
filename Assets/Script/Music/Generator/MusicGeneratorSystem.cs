@@ -1,6 +1,7 @@
 ﻿using System;
 using Define;
 using Script.JudgPanel;
+using Script.Manager;
 using Script.MusicNode;
 using Unity.Burst;
 using Unity.Entities;
@@ -21,6 +22,7 @@ namespace Script.Music.Generator
         {
             state.RequireForUpdate<PhysicsWorldSingleton>();
             state.RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
+            state.RequireForUpdate<GameManagerTag>();
             state.RequireForUpdate<MusicGeneratorTag>();
         }
 
@@ -31,8 +33,8 @@ namespace Script.Music.Generator
 
         public void OnUpdate(ref SystemState state)
         {
-            if (Input.GetMouseButtonDown(0) == false)
-                return;
+            if (SystemAPI.IsComponentEnabled<MusicStartTag>(SystemAPI.GetSingletonEntity<GameManagerTag>()) == true) return;
+            if (Input.GetMouseButtonDown(0) == false) return;
 
             var ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
             var entity = SystemAPI.GetSingletonEntity<MusicGeneratorTag>();

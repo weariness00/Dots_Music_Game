@@ -1,4 +1,5 @@
-﻿using Script.Music.Generator;
+﻿using Script.JudgPanel;
+using Script.Music.Generator;
 using Script.MusicNode;
 using Unity.Burst;
 using Unity.Entities;
@@ -49,6 +50,19 @@ namespace Script.Music
                         Rotation = quaternion.identity,
                         Scale = 1,
                     };
+                    
+                    switch (nodeInfo.JudgPanelType)
+                    {
+                        case JudgPanelType.Pistol:
+                            ecb.AddComponent<PistolNodeTag>(newNodeEntity);
+                            break;
+                        case JudgPanelType.Rifle:
+                            ecb.AddComponent<RifleNodeTag>(newNodeEntity);
+                            break;
+                        case JudgPanelType.Sniper:
+                            ecb.AddComponent<SniperNodeTag>(newNodeEntity);
+                            break;
+                    }
                     
                     ecb.SetComponent(newNodeEntity, new MusicNodeAuthoring(){NodeInfo = nodeInfo});
                     ecb.SetComponent(newNodeEntity, newNodeTransform);

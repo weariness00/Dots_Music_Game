@@ -2,7 +2,7 @@
 
 namespace Script.Music
 {
-    public struct MusicStartTag : IComponentData {}
+    public struct MusicStartTag : IComponentData, IEnableableComponent {}
     public struct MusicLoadTag : IComponentData { }
 
     public class MusicLoadAuthoring : IComponentData

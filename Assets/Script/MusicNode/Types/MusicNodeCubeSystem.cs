@@ -1,4 +1,5 @@
-﻿using Script.Music;
+﻿using Script.Manager;
+using Script.Music;
 using Script.MusicNode.Types;
 using Unity.Burst;
 using Unity.Entities;
@@ -10,6 +11,7 @@ namespace Script.MusicNode
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
+            state.RequireForUpdate<GameManagerTag>();
             state.RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<MusicNodeCubeTag>();
             state.RequireForUpdate<MusicStartTag>();
@@ -24,6 +26,8 @@ namespace Script.MusicNode
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            if (SystemAPI.IsComponentEnabled<MusicStartTag>(SystemAPI.GetSingletonEntity<GameManagerTag>()) == false) return;
+            
             var ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
             var dt = SystemAPI.Time.DeltaTime;
 
