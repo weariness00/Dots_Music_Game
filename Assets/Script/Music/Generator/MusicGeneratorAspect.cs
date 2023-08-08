@@ -1,4 +1,5 @@
-﻿using Script.JudgPanel;
+﻿using Script.JudgePanel;
+using Script.JudgPanel;
 using Unity.Entities;
 
 namespace Script.Music.Generator
@@ -8,7 +9,7 @@ namespace Script.Music.Generator
         public readonly Entity Entity;
 
         private readonly RefRO<MusicGeneratorPanelTypeAuthoring> _judgPanelTypeAuthoring;
-        public JudgPanelType JudgPanelType => _judgPanelTypeAuthoring.ValueRO.PanelType;
+        public JudgePanelType JudgePanelType => _judgPanelTypeAuthoring.ValueRO.PanelType;
 
         public readonly DynamicBuffer<MusicGeneratorNodeEntities> NodeEntities;
         public readonly DynamicBuffer<MusicScriptableObjectData> NodeListScriptableObject;

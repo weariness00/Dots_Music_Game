@@ -314,10 +314,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  judgInterval:
-    PerfectInterval: 0
-    GoodInterval: 0
-    BadInterval: 0
+  judgeInterval:
+    PerfectInterval: 1
+    GoodInterval: 2
+    BadInterval: 3
 --- !u!114 &688167155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,7 +576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  judgInterval:
+  judgeInterval:
     PerfectInterval: 0
     GoodInterval: 0
     BadInterval: 0
@@ -751,7 +751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  judgInterval:
+  judgeInterval:
     PerfectInterval: 0
     GoodInterval: 0
     BadInterval: 0

@@ -2,6 +2,7 @@
 using Script.Music;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Script.Manager
 {
@@ -9,8 +10,8 @@ namespace Script.Manager
     {
         public static GameManager Instance;
 
-        private EntityManager _entityManager;
-        private Entity _entity;
+        public EntityManager EntityManager;
+        public Entity Entity;
 
         private void Awake()
         {
@@ -20,13 +21,15 @@ namespace Script.Manager
 
         private void Start()
         {
-            _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            _entity = _entityManager.CreateEntityQuery(typeof(GameManagerTag)).GetSingletonEntity();
+            EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            Entity = EntityManager.CreateEntityQuery(typeof(GameManagerTag)).GetSingletonEntity();
         }
 
+        public UnityEvent musicStartCall;
         public void MusicStart()
         {
-            _entityManager.SetComponentEnabled<MusicStartTag>(_entity, true);
+            EntityManager.SetComponentEnabled<MusicStartTag>(Entity, true);
+            musicStartCall?.Invoke();
         }
     }
 }

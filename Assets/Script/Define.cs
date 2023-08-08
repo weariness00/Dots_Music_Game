@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using Script.JudgePanel;
 using Script.JudgPanel;
 using Script.Music.Generator;
 using Unity.Entities;
 using Unity.Mathematics;
+using UnityEngine.Serialization;
 
 namespace Define
 {
@@ -12,7 +14,7 @@ namespace Define
         public int order;
         
         public int NodeEntityTypeIndex;
-        public JudgPanelType JudgPanelType;
+        public JudgePanelType judgePanelType;
         public float3 StartPosition;
         public float LenthToDestination;
     }
@@ -26,7 +28,7 @@ namespace Define
     {
         public int Compare(MusicScriptableObjectData a, MusicScriptableObjectData b)
         {
-            return a.NodeInfo.LenthToDestination.CompareTo(b.NodeInfo.LenthToDestination);
+            return b.NodeInfo.LenthToDestination.CompareTo(a.NodeInfo.LenthToDestination);
         }
     }
 }

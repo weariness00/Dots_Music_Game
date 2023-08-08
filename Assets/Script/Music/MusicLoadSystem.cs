@@ -1,4 +1,5 @@
-﻿using Script.JudgPanel;
+﻿using Script.JudgePanel;
+using Script.JudgPanel;
 using Script.Music.Generator;
 using Script.MusicNode;
 using Unity.Burst;
@@ -51,16 +52,23 @@ namespace Script.Music
                         Scale = 1,
                     };
                     
-                    switch (nodeInfo.JudgPanelType)
+                    switch (nodeInfo.judgePanelType)
                     {
-                        case JudgPanelType.Pistol:
+                        case JudgePanelType.Pistol:
                             ecb.AddComponent<PistolNodeTag>(newNodeEntity);
                             break;
-                        case JudgPanelType.Rifle:
+                        case JudgePanelType.Rifle:
                             ecb.AddComponent<RifleNodeTag>(newNodeEntity);
                             break;
-                        case JudgPanelType.Sniper:
+                        case JudgePanelType.Sniper:
                             ecb.AddComponent<SniperNodeTag>(newNodeEntity);
+                            break;
+                    }
+
+                    switch (nodeInfo.NodeEntityTypeIndex)
+                    {
+                        case 0: // Cube
+                            ecb.AddComponent<MusicNodeCubeTag>(newNodeEntity);
                             break;
                     }
                     

@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Script.JudgePanel;
+using Unity.Entities;
 
 namespace Script.Manager
 {
@@ -8,5 +9,6 @@ namespace Script.Manager
     {
         public int Score;
         public int Combo;
+        public JudgeType JudgeType;
     }
 }

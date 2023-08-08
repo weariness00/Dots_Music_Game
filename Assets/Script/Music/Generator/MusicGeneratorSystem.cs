@@ -1,5 +1,6 @@
 ﻿using System;
 using Define;
+using Script.JudgePanel;
 using Script.JudgPanel;
 using Script.Manager;
 using Script.MusicNode;
@@ -90,15 +91,15 @@ namespace Script.Music.Generator
                 };
                 ecb.SetComponent(newNodeEntity, newNodeTransform);
 
-                switch (generatorAspect.JudgPanelType)
+                switch (generatorAspect.JudgePanelType)
                 {
-                    case JudgPanelType.Pistol:
+                    case JudgePanelType.Pistol:
                         ecb.AddComponent<PistolNodeTag>(newNodeEntity);
                         break;
-                    case JudgPanelType.Rifle:
+                    case JudgePanelType.Rifle:
                         ecb.AddComponent<RifleNodeTag>(newNodeEntity);
                         break;
-                    case JudgPanelType.Sniper:
+                    case JudgePanelType.Sniper:
                         ecb.AddComponent<SniperNodeTag>(newNodeEntity);
                         break;
                     default:
@@ -108,7 +109,7 @@ namespace Script.Music.Generator
                 var nodeInfo = new MusicNodeInfo()
                 {
                     NodeEntityTypeIndex = entityIndex,
-                    JudgPanelType = generatorAspect.JudgPanelType,
+                    judgePanelType = generatorAspect.JudgePanelType,
                     StartPosition = clickPosition,
                     LenthToDestination = math.distance(clickPosition, float3.zero),
                 };
