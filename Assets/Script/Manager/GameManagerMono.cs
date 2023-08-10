@@ -20,6 +20,7 @@ namespace Script.Manager
                 Score = 0,
                 Combo = 0,
             });
+            AddComponent<NearNodeEntity>(entity);
             
             SetComponentEnabled<MusicStartTag>(entity,false);
         }

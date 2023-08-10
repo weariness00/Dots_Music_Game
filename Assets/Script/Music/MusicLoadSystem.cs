@@ -1,5 +1,6 @@
 ﻿using Script.JudgePanel;
 using Script.JudgPanel;
+using Script.Manager;
 using Script.Music.Generator;
 using Script.MusicNode;
 using Unity.Burst;
@@ -16,6 +17,7 @@ namespace Script.Music
             state.RequireForUpdate<MusicGeneratorTag>();
             state.RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<MusicLoadTag>();
+            state.RequireForUpdate<GameManagerTag>();
         }
 
         [BurstCompile]
@@ -74,6 +76,12 @@ namespace Script.Music
                     
                     ecb.SetComponent(newNodeEntity, new MusicNodeAuthoring(){NodeInfo = nodeInfo});
                     ecb.SetComponent(newNodeEntity, newNodeTransform);
+                    
+                    if(nodeInfo.order == 0)
+                        ecb.SetComponent(SystemAPI.GetSingletonEntity<GameManagerTag>(), new NearNodeEntity()
+                        {
+                            PistolNode = newNodeEntity,
+                        });
                 }
             }
             ecb.RemoveComponent<MusicLoadAuthoring>(entity);

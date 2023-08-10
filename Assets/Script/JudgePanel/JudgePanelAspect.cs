@@ -17,10 +17,11 @@ namespace Script.JudgPanel
         // 3 : Perfect
         public JudgeType Judge(float dis)
         {
-            if (dis < 5f + JudgeInterval.PerfectInterval && 5f - JudgeInterval.PerfectInterval < dis) return JudgeType.Perfect;
-            if (dis < 5f + JudgeInterval.GoodInterval && 5f - JudgeInterval.GoodInterval < dis) return JudgeType.Good;
-            if (dis < 5f + JudgeInterval.BadInterval && 5f - JudgeInterval.BadInterval < dis) return JudgeType.Bad;
-            return JudgeType.Miss;
+            if (dis < JudgeInterval.Distance + JudgeInterval.PerfectInterval && JudgeInterval.Distance - JudgeInterval.PerfectInterval < dis) return JudgeType.Perfect;
+            if (dis < JudgeInterval.Distance + JudgeInterval.GoodInterval && JudgeInterval.Distance - JudgeInterval.GoodInterval < dis) return JudgeType.Good;
+            if (dis < JudgeInterval.Distance + JudgeInterval.BadInterval && JudgeInterval.Distance - JudgeInterval.BadInterval < dis) return JudgeType.Bad;
+            if (dis < JudgeInterval.Distance + JudgeInterval.MissInterval && JudgeInterval.Distance - JudgeInterval.MissInterval < dis) return JudgeType.Miss;
+            return JudgeType.None;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Script.JudgePanel;
 using Script.Manager;
 using Script.Music;
 using TMPro;
@@ -30,7 +31,7 @@ namespace Script.UI
             var gmAuthoring = gm.EntityManager.GetComponentData<GameManagerAuthoring>(gm.Entity);
             score.text = gmAuthoring.Score.ToString();
             combo.text = gmAuthoring.Combo.ToString();
-            judge.text = gmAuthoring.JudgeType.ToString();
+            if(gmAuthoring.JudgeType != JudgeType.None) judge.text = gmAuthoring.JudgeType.ToString();
         }
     }
 }

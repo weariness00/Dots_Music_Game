@@ -17,74 +17,74 @@ MonoBehaviour:
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -34.02472
-      y: -0.0000019073486
+      x: 1.0644203
+      y: 0
       z: 0
-    LenthToDestination: 34.02472
+    LenthToDestination: 1.0644203
   - order: 1
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -32.556557
-      y: -0.0000019073486
+      x: 1.358054
+      y: 0.0000019073486
       z: 0
-    LenthToDestination: 32.556557
+    LenthToDestination: 1.358054
   - order: 2
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -26.170038
+      x: 5.101871
       y: 0
       z: 0
-    LenthToDestination: 26.170038
+    LenthToDestination: 5.101871
   - order: 3
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -24.775278
+      x: -5.7625465
       y: 0
       z: 0
-    LenthToDestination: 24.775278
+    LenthToDestination: 5.7625465
   - order: 4
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -23.674158
+      x: 6.0561795
       y: 0
       z: 0
-    LenthToDestination: 23.674158
+    LenthToDestination: 6.0561795
   - order: 5
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -20.517603
+      x: 6.2764025
       y: 0
       z: 0
-    LenthToDestination: 20.517603
+    LenthToDestination: 6.2764025
   - order: 6
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -13.470412
+      x: 8.845692
       y: 0
       z: 0
-    LenthToDestination: 13.470412
+    LenthToDestination: 8.845692
   - order: 7
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -11.635204
+      x: -9.653185
       y: 0
       z: 0
-    LenthToDestination: 11.635204
+    LenthToDestination: 9.653185
   - order: 8
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -11.268165
+      x: -9.726591
       y: 0
       z: 0
-    LenthToDestination: 11.268165
+    LenthToDestination: 9.726591
   - order: 9
     NodeEntityTypeIndex: 0
     judgePanelType: 0
@@ -105,71 +105,71 @@ MonoBehaviour:
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -9.726591
+      x: -11.268165
       y: 0
       z: 0
-    LenthToDestination: 9.726591
+    LenthToDestination: 11.268165
   - order: 12
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -9.653185
+      x: -11.635204
       y: 0
       z: 0
-    LenthToDestination: 9.653185
+    LenthToDestination: 11.635204
   - order: 13
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 8.845692
+      x: -13.470412
       y: 0
       z: 0
-    LenthToDestination: 8.845692
+    LenthToDestination: 13.470412
   - order: 14
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 6.2764025
+      x: -20.517603
       y: 0
       z: 0
-    LenthToDestination: 6.2764025
+    LenthToDestination: 20.517603
   - order: 15
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 6.0561795
+      x: -23.674158
       y: 0
       z: 0
-    LenthToDestination: 6.0561795
+    LenthToDestination: 23.674158
   - order: 16
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -5.7625465
+      x: -24.775278
       y: 0
       z: 0
-    LenthToDestination: 5.7625465
+    LenthToDestination: 24.775278
   - order: 17
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 5.101871
+      x: -26.170038
       y: 0
       z: 0
-    LenthToDestination: 5.101871
+    LenthToDestination: 26.170038
   - order: 18
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 1.358054
-      y: 0.0000019073486
+      x: -32.556557
+      y: -0.0000019073486
       z: 0
-    LenthToDestination: 1.358054
+    LenthToDestination: 32.556557
   - order: 19
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 1.0644203
-      y: 0
+      x: -34.02472
+      y: -0.0000019073486
       z: 0
-    LenthToDestination: 1.0644203
+    LenthToDestination: 34.02472

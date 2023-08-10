@@ -39,37 +39,32 @@ namespace Script.JudgePanel
             var pistolPanelAspect = SystemAPI.GetAspect<JudgePanelAspect>(pistolPanelEntity);
             var pistolPanelSound = SystemAPI.ManagedAPI.GetComponent<JudgPanelEffectSound>(pistolPanelEntity);
             
-            foreach (var aspect in SystemAPI.Query<MusicNodeAspect>().WithAll<PistolNodeTag>())
-            {
-                var dis = math.distance(aspect.Position, float3.zero);
-                var judge = pistolPanelAspect.Judge(dis);
-                switch(judge)
-                {
-                    case JudgeType.Miss:
-                        gmAuthoring.ValueRW.Combo = 0;
-                        break;
-                    case JudgeType.Bad:
-                        gmAuthoring.ValueRW.Combo++;
-                        gmAuthoring.ValueRW.Score += 100;
-                        break;
-                    case JudgeType.Good:
-                        gmAuthoring.ValueRW.Combo++;
-                        gmAuthoring.ValueRW.Score += 200;
-                        break;
-                    case JudgeType.Perfect:
-                        gmAuthoring.ValueRW.Combo++;
-                        gmAuthoring.ValueRW.Score += 300;
-                        break;
-                }
-
-                gmAuthoring.ValueRW.JudgeType = judge;
-                ecb.DestroyEntity(aspect.Entity);
-                break;
-            }
-            ecb.AddComponent<MusicNodeRemoveTag>(gmEntity);
             Managers.Sound.Play(pistolPanelSound.Clip, SoundType.Effect);
+
+            var nearPistolNodeEntity = SystemAPI.GetComponent<NearNodeEntity>(gmEntity).PistolNode;
+            var nearPistolNodeAspect = SystemAPI.GetAspect<MusicNodeAspect>(nearPistolNodeEntity);
+            var dis = math.distance(nearPistolNodeAspect.Position, float3.zero);
+            var judge = pistolPanelAspect.Judge(dis);
+            switch(judge)
+            {
+                case JudgeType.None:
+                    return;
+                case JudgeType.Miss:
+                    gmAuthoring.ValueRW.Miss();
+                    break;
+                case JudgeType.Bad:
+                    gmAuthoring.ValueRW.Bad();
+                    break;
+                case JudgeType.Good:
+                    gmAuthoring.ValueRW.Good();
+                    break;
+                case JudgeType.Perfect:
+                    gmAuthoring.ValueRW.Perfect();
+                    break;
+            }
+            ecb.DestroyEntity(nearPistolNodeEntity);
             
-            return;
+            ecb.AddComponent<MusicNodeRemoveTag>(gmEntity);
         }
     }
 }

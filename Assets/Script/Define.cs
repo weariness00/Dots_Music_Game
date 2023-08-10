@@ -28,7 +28,7 @@ namespace Define
     {
         public int Compare(MusicScriptableObjectData a, MusicScriptableObjectData b)
         {
-            return b.NodeInfo.LenthToDestination.CompareTo(a.NodeInfo.LenthToDestination);
+            return a.NodeInfo.LenthToDestination.CompareTo(b.NodeInfo.LenthToDestination);
         }
     }
 }

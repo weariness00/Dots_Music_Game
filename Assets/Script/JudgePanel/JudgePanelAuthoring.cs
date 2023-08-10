@@ -6,6 +6,7 @@ namespace Script.JudgePanel
 {
     public enum JudgeType
     {
+        None,
         Miss,
         Bad,
         Good,

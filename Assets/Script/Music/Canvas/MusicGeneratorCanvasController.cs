@@ -35,6 +35,12 @@ namespace Script.Music.Canvas
 
         public void MusicSave()
         {
+            if (nameField.text.Length == 0)
+            {
+                Debug.LogWarning("이름을 입력해주십시오.");
+                return;
+            }
+            
             var musicData = _entityManager.GetBuffer<MusicScriptableObjectData>(_entity).AsNativeArray();
             musicData.Sort(new MusicNodeLenthToDestinationSort());
             
@@ -106,7 +112,10 @@ namespace Script.Music.Canvas
         public void MusicBar(float value)
         {
             AudioSource musicAudio = Managers.Sound.GetAudioSource(SoundType.BGM);
-            float musicLenth = musicAudio.clip.length;
+
+            float musicLenth = 1f;
+            if (musicAudio.clip != null)
+                musicLenth = musicAudio.clip.length;
             float currentTime = value * musicLenth;
 
             musicAudio.time = currentTime;

@@ -15,9 +15,12 @@ namespace Script.JudgePanel
     [System.Serializable]
     public struct JudgeInterval
     {
+        public float Distance;
+        
         public float PerfectInterval;
         public float GoodInterval;
         public float BadInterval;
+        public float MissInterval;
     }
     
     public class JudgePanelMono : MonoBehaviour
@@ -25,7 +28,6 @@ namespace Script.JudgePanel
         public JudgePanelType type;
         public JudgeInterval judgeInterval;
         public AudioClip effectSound;
-        
     }
 
     public class JudgePanelBaker : Baker<JudgePanelMono>

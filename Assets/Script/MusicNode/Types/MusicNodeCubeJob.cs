@@ -7,7 +7,7 @@ namespace Script.MusicNode.Types
         public EntityCommandBuffer.ParallelWriter ECB;
         public float DeltaTime;
     
-        private void Execute(MusicNodeAspect aspect)
+        private void Execute(MusicNodeAspect aspect, [ChunkIndexInQuery]int sortKey)
         {
             aspect.MoveNode(DeltaTime);
         }

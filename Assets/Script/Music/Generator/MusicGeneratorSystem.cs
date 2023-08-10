@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Define;
 using Script.JudgePanel;
 using Script.JudgPanel;
@@ -10,6 +11,8 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Script.Music.Generator
 {
@@ -62,6 +65,8 @@ namespace Script.Music.Generator
             PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
             if (physicsWorld.CastRay(ray, out var hit))
             {
+                if(IsUIHit()) return;
+                
                 float3 clickPosition = hit.Position;
                 clickPosition.z = 0;
 
@@ -117,6 +122,20 @@ namespace Script.Music.Generator
                 generatorAspect.NodeListScriptableObject.Add( new MusicScriptableObjectData() { NodeInfo = nodeInfo });
                 ecb.SetComponent(newNodeEntity, new MusicNodeAuthoring(){NodeInfo = nodeInfo});
             }
+        }
+
+        bool IsUIHit()
+        {
+            PointerEventData eventData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition,
+            };
+
+            var results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, results);
+
+            if (results.Count != 0) return true;
+            return false;
         }
     }
 }
