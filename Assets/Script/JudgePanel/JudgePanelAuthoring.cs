@@ -1,5 +1,6 @@
 ﻿using Script.JudgPanel;
 using Unity.Entities;
+using UnityEngine;
 
 namespace Script.JudgePanel
 {
@@ -18,5 +19,10 @@ namespace Script.JudgePanel
     public struct JudgePanelAuthoring : IComponentData
     {
         public JudgeInterval Interval;
+    }
+
+    public class JudgPanelEffectSound : IComponentData
+    {
+        public AudioClip Clip;
     }
 }

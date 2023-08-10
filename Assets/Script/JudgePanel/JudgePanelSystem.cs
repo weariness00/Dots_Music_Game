@@ -37,6 +37,7 @@ namespace Script.JudgePanel
             
             var pistolPanelEntity = SystemAPI.GetSingletonEntity<PistolPanelTag>();
             var pistolPanelAspect = SystemAPI.GetAspect<JudgePanelAspect>(pistolPanelEntity);
+            var pistolPanelSound = SystemAPI.ManagedAPI.GetComponent<JudgPanelEffectSound>(pistolPanelEntity);
             
             foreach (var aspect in SystemAPI.Query<MusicNodeAspect>().WithAll<PistolNodeTag>())
             {
@@ -66,11 +67,9 @@ namespace Script.JudgePanel
                 break;
             }
             ecb.AddComponent<MusicNodeRemoveTag>(gmEntity);
-
-            return;
+            Managers.Sound.Play(pistolPanelSound.Clip, SoundType.Effect);
             
-            var riflePanelEntity = SystemAPI.GetSingletonEntity<RiflePanelTag>();
-            var sniperPanelEntity = SystemAPI.GetSingletonEntity<SniperPanelTag>();
+            return;
         }
     }
 }

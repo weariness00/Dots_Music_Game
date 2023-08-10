@@ -24,12 +24,11 @@ namespace Script.Manager
             EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             Entity = EntityManager.CreateEntityQuery(typeof(GameManagerTag)).GetSingletonEntity();
         }
-
-        public UnityEvent musicStartCall;
+        
         public void MusicStart()
         {
             EntityManager.SetComponentEnabled<MusicStartTag>(Entity, true);
-            musicStartCall?.Invoke();
+            Managers.Sound.GetAudioSource(SoundType.BGM).Play();
         }
     }
 }

@@ -23,7 +23,9 @@ namespace Script.JudgePanel
     public class JudgePanelMono : MonoBehaviour
     {
         public JudgePanelType type;
-        [FormerlySerializedAs("judgInterval")] public JudgeInterval judgeInterval;
+        public JudgeInterval judgeInterval;
+        public AudioClip effectSound;
+        
     }
 
     public class JudgePanelBaker : Baker<JudgePanelMono>
@@ -47,6 +49,8 @@ namespace Script.JudgePanel
                     AddComponent<SniperPanelTag>(entity);
                     break;
             }
+            
+            AddComponentObject(entity, new JudgPanelEffectSound(){Clip = authoring.effectSound});
         }
     }
 }
