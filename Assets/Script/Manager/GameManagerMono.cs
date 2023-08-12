@@ -19,6 +19,7 @@ namespace Script.Manager
             {
                 Score = 0,
                 Combo = 0,
+                BPM = 1f,
             });
             AddComponent<NearNodeEntity>(entity);
             

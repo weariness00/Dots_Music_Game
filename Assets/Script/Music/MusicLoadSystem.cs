@@ -28,18 +28,22 @@ namespace Script.Music
 
         public void OnUpdate(ref SystemState state)
         {
-            var entity = SystemAPI.GetSingletonEntity<MusicLoadTag>();
             var ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
+            var entity = SystemAPI.GetSingletonEntity<MusicLoadTag>();
+            var gmEntity = SystemAPI.GetSingletonEntity<GameManagerTag>();
+            var musicData = SystemAPI.ManagedAPI.GetComponent<MusicLoadAuthoring>(entity);
+            
+            {   // Set Game Manager Data
+                ecb.SetComponent(gmEntity, new GameManagerAuthoring(){BPM = musicData.MusicScriptableObject.BPM_Speed});
+            }
 
             {  // prev node destory 
-                
                 foreach (var (tag, nodeEntity) in SystemAPI.Query<MusicNodeTag>().WithEntityAccess())
                     ecb.DestroyEntity(nodeEntity);
             }
 
             { // generate node
                 var generatorAspect = SystemAPI.GetAspect<MusicGeneratorAspect>(SystemAPI.GetSingletonEntity<MusicGeneratorTag>());
-                var musicData = SystemAPI.ManagedAPI.GetComponent<MusicLoadAuthoring>(entity);
                 
                 generatorAspect.NodeListScriptableObject.Clear();
                 foreach (var nodeInfo in musicData.MusicScriptableObject.NodeList)
@@ -78,7 +82,7 @@ namespace Script.Music
                     ecb.SetComponent(newNodeEntity, newNodeTransform);
                     
                     if(nodeInfo.order == 0)
-                        ecb.SetComponent(SystemAPI.GetSingletonEntity<GameManagerTag>(), new NearNodeEntity()
+                        ecb.SetComponent(gmEntity, new NearNodeEntity()
                         {
                             PistolNode = newNodeEntity,
                         });

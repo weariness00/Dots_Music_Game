@@ -12,11 +12,14 @@ namespace Script.MusicNode.Remove
         
         private void Execute(MusicNodeAspect aspect, [ChunkIndexInQuery]int sortKey)
         {
-            if (--aspect.Order == 0)
+            aspect.Order--;
+            if (aspect.Order == 0)
             {
                 NearNodeEntity.PistolNode = aspect.Entity;
                 ECB.SetComponent(sortKey, GM_Entity, NearNodeEntity);
             }
+            else if (aspect.Order < 0)
+                ECB.DestroyEntity(sortKey,aspect.Entity);
         }
     }
 }

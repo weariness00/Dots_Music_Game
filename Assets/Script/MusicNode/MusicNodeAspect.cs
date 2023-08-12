@@ -20,26 +20,12 @@ namespace Script.MusicNode
             set => MusicNodeAuthoring.ValueRW.NodeInfo.order = value;
         }
         public float LenthToZero => MusicNodeAuthoring.ValueRO.NodeInfo.LenthToDestination;
-        private float3 StartPosition => MusicNodeAuthoring.ValueRO.NodeInfo.StartPosition;
-
-        private readonly RefRW<CurrentTime> _currentTime;
-        private float CurrentTime
-        {
-            get => _currentTime.ValueRO.Time;
-            set => _currentTime.ValueRW.Time = value;
-        }
+        public float3 StartPosition => MusicNodeAuthoring.ValueRO.NodeInfo.StartPosition;
         
         public float3 Position
         {
             get => Transform.ValueRO.Position;
             set => Transform.ValueRW.Position = value;
-        }
-
-        public void MoveNode(float dt)
-        {
-            CurrentTime += dt;
-            if (CurrentTime >= LenthToZero) CurrentTime = LenthToZero;
-            Position = math.lerp(StartPosition, float3.zero, CurrentTime / LenthToZero);
         }
     }
 }

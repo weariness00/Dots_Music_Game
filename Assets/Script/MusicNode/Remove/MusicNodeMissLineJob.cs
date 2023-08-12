@@ -3,6 +3,7 @@ using Script.JudgPanel;
 using Script.Manager;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace Script.MusicNode.Remove
 {
@@ -11,17 +12,17 @@ namespace Script.MusicNode.Remove
         public EntityCommandBuffer.ParallelWriter ECB;
 
         public Entity GM_Entity;
+        public LocalTransform NearPistolNodeTransform;
         public GameManagerAuthoring GM_Authoring;
         public JudgePanelAuthoring PistolAuthoring;
         
-        private void Execute(MusicNodeAspect aspect, PistolNodeTag tag, [ChunkIndexInQuery]int sortKey)
+        private void Execute(NearNodeEntity nearNodeEntity, [ChunkIndexInQuery]int sortKey)
         {
-            if (aspect.Order != 0) return;
+            if (nearNodeEntity.PistolNode == Entity.Null) return;
             
-            var dis = math.distance(aspect.Position, float3.zero);
+            var dis = math.distance(NearPistolNodeTransform.Position, float3.zero);
             if (dis < PistolAuthoring.Interval.Distance - 1f)
             {
-                ECB.DestroyEntity(sortKey, aspect.Entity);
                 GM_Authoring.Miss();
                 
                 ECB.SetComponent(sortKey, GM_Entity, GM_Authoring);

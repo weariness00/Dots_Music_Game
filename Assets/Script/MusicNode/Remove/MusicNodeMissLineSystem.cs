@@ -4,6 +4,8 @@ using Script.Manager;
 using Script.Music;
 using Unity.Burst;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace Script.MusicNode.Remove
 {
@@ -20,7 +22,6 @@ namespace Script.MusicNode.Remove
         [BurstCompile]
         public void OnDestroy(ref SystemState state)
         {
-
         }
 
         [BurstCompile]
@@ -28,14 +29,16 @@ namespace Script.MusicNode.Remove
         {
             var gmEntity = SystemAPI.GetSingletonEntity<GameManagerTag>();
             if (SystemAPI.IsComponentEnabled<MusicStartTag>(gmEntity) == false) return;
-            
+
             var ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
+            var nearEntities = SystemAPI.GetComponent<NearNodeEntity>(gmEntity);
 
             var pistolMissLineJob = new MusicNodeMissLineToPistolJob()
             {
                 ECB = ecb.AsParallelWriter(),
-                
+
                 GM_Entity = gmEntity,
+                NearPistolNodeTransform = SystemAPI.GetComponent<LocalTransform>(nearEntities.PistolNode),
                 GM_Authoring = SystemAPI.GetComponent<GameManagerAuthoring>(gmEntity),
                 PistolAuthoring = SystemAPI.GetComponent<JudgePanelAuthoring>(SystemAPI.GetSingletonEntity<PistolPanelTag>()),
             };

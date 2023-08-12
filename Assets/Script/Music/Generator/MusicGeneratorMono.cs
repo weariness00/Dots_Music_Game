@@ -18,6 +18,7 @@ namespace Script.Music.Generator
 
             AddComponent<MusicGeneratorInitTag>(entity);   
             AddComponent<MusicGeneratorTag>(entity);
+            AddComponent<MusicGeneratorDeleteTag>(entity);
             
             AddComponent(entity, new MusicGeneratorPanelTypeAuthoring(){PanelType = 0});
 

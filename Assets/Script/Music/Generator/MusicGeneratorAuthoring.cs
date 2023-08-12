@@ -8,6 +8,8 @@ namespace Script.Music.Generator
 {
     public struct MusicGeneratorInitTag : IComponentData {}
     public struct MusicGeneratorTag : IComponentData{}
+    public struct MusicGeneratorDeleteTag : IComponentData, IEnableableComponent
+    {}
 
     public struct MusicGeneratorPanelTypeAuthoring : IComponentData
     {

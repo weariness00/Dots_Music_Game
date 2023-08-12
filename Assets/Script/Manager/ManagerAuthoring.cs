@@ -16,6 +16,8 @@ namespace Script.Manager
         public int Combo;
         public JudgeType JudgeType;
 
+        public float BPM;
+
         public void Miss()
         {
             Combo = 0;

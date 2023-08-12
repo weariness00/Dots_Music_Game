@@ -63,17 +63,9 @@ namespace Script.Manager
 
 		public void Play(string path, SoundType type = SoundType.Effect, float pitch = 1.0f)
 		{
-			if(!path.Contains("/"))
-				path = defualt_Path + path;
-			else if (!path.Contains("Sound"))
-				path = defualt_Path + path;
-
 			AudioClip clip = GetORAddAudioClip(path);
 			if (clip == null)
-			{
-				Debug.LogWarning($"AudioClip Missing : {path}");
 				return;
-			}
 			Play(clip, type, pitch);
 		}
 
@@ -117,12 +109,23 @@ namespace Script.Manager
 			clipDictionary.Clear();
 		}
 
-		AudioClip GetORAddAudioClip(string path)
+		public AudioClip GetORAddAudioClip(string path)
 		{
+			if(!path.Contains("/"))
+				path = defualt_Path + path;
+			else if (!path.Contains("Sound"))
+				path = defualt_Path + path;
+			
 			AudioClip clip = null;
 			if(clipDictionary.TryGetValue(path, out clip) == false)
 			{
 				clip = Resources.Load<AudioClip>(path);
+				if (clip == null)
+				{
+					Debug.LogWarning($"AudioClip Missing : {path}");
+					return null;
+				}
+				
 				clipDictionary.Add(path, clip);
 			}
 			return clip;

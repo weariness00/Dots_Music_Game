@@ -19,11 +19,6 @@ namespace Define
         public float LenthToDestination;
     }
 
-    public struct CurrentTime : IComponentData
-    {
-        public float Time;
-    }
-
     public struct MusicNodeLenthToDestinationSort : IComparer<MusicScriptableObjectData>
     {
         public int Compare(MusicScriptableObjectData a, MusicScriptableObjectData b)

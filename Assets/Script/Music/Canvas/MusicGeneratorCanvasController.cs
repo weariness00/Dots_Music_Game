@@ -15,14 +15,25 @@ namespace Script.Music.Canvas
 {
     public class MusicGeneratorCanvasController : MonoBehaviour
     {
+        public static MusicGeneratorCanvasController Instance;
+        
         public string path;
         public TMP_InputField nameField;
+        public TMP_InputField bpmField;
         public Slider musicBar;
         public Toggle musicPlayAndStop;
+        public Toggle nodeDeleteToggle;
         public TMP_Dropdown musicSelect;
 
+        private int bpm = 1;
+        
         private EntityManager _entityManager;
         private Entity _entity;
+
+        private void Awake()
+        {
+            if (Instance == null) Instance = this;
+        }
 
         private void Start()
         {
@@ -40,13 +51,22 @@ namespace Script.Music.Canvas
                 Debug.LogWarning("이름을 입력해주십시오.");
                 return;
             }
+
+            var clip = Managers.Sound.GetORAddAudioClip($"Music/{musicSelect.captionText.text}");
+            if (clip == null)
+            {
+                Debug.LogWarning("Is not Find Music.so i can't save");
+                return;
+            }
             
             var musicData = _entityManager.GetBuffer<MusicScriptableObjectData>(_entity).AsNativeArray();
             musicData.Sort(new MusicNodeLenthToDestinationSort());
             
             var musicScriptableObject = ScriptableObject.CreateInstance<MusicScriptableObject>();
-            musicScriptableObject.NodeList = new MusicNodeInfo[musicData.Length];
+            musicScriptableObject.clip = clip;
+            musicScriptableObject.BPM_Speed = bpm;
 
+            musicScriptableObject.NodeList = new MusicNodeInfo[musicData.Length];
             for (int i = 0; i < musicData.Length; i++)
             {
                 musicScriptableObject.NodeList[i] = musicData[i].NodeInfo;
@@ -67,6 +87,9 @@ namespace Script.Music.Canvas
                 Debug.LogWarning($"{curPath}에\n{nameField.text}라는 이름의 Music ScriptableObject가 존재하지 않습니다.");
                 return;
             }
+
+            var audioSource = Managers.Sound.GetAudioSource(SoundType.BGM);
+            audioSource.clip = musicData.clip;
             
             _entityManager.AddComponent<MusicLoadTag>(_entity);
             _entityManager.AddComponentObject(_entity, new MusicLoadAuthoring(){MusicScriptableObject = musicData});
@@ -80,14 +103,14 @@ namespace Script.Music.Canvas
         public void MusicPlayAndStop(bool isOn)
         {
             AudioSource musicAudio = Managers.Sound.GetAudioSource(SoundType.BGM);
+            if (musicAudio.clip == null)
+            {
+                Debug.LogWarning("is not find select Music");
+                return;
+            }
+            
             if (isOn)
             {
-                if (musicAudio.clip == null)
-                {
-                    string path = $"Music/{musicSelect.captionText.text}";
-                    Managers.Sound.Play(path, SoundType.BGM);
-                }
-                
                 musicAudio.Play();
                 StartCoroutine(nameof(PlayMusicCoroutine));
             }
@@ -112,13 +135,33 @@ namespace Script.Music.Canvas
         public void MusicBar(float value)
         {
             AudioSource musicAudio = Managers.Sound.GetAudioSource(SoundType.BGM);
-
-            float musicLenth = 1f;
-            if (musicAudio.clip != null)
-                musicLenth = musicAudio.clip.length;
+            if (musicAudio.clip == null) return;
+            
+            float musicLenth = musicAudio.clip.length;
             float currentTime = value * musicLenth;
 
             musicAudio.time = currentTime;
         }
+
+        public void SelectBGM()
+        { 
+            var audioSource = Managers.Sound.GetAudioSource(SoundType.BGM);
+            audioSource.clip = Managers.Sound.GetORAddAudioClip($"Music/{musicSelect.captionText.text}");
+        }
+
+        public void ChangeBPM()
+        {
+            var gmEntity = GameManager.Instance.Entity;
+            var gmAuthoring = _entityManager.GetComponentData<GameManagerAuthoring>(gmEntity);
+            bpm = int.Parse(bpmField.text);
+            gmAuthoring.BPM = bpm;
+            _entityManager.SetComponentData(gmEntity, gmAuthoring);
+        }
+
+        public void IsOnNodeDelete()
+        {
+            _entityManager.SetComponentEnabled<MusicGeneratorDeleteTag>(_entity, nodeDeleteToggle.isOn); 
+        }
+        
     }
 }

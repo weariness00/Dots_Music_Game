@@ -11,10 +11,8 @@ namespace Script.MusicNode
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            state.RequireForUpdate<GameManagerTag>();
             state.RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
-            state.RequireForUpdate<MusicNodeCubeTag>();
-            state.RequireForUpdate<MusicStartTag>();
+            state.RequireForUpdate<GameManagerTag>();
         }
 
         [BurstCompile]
@@ -26,18 +24,21 @@ namespace Script.MusicNode
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            if (SystemAPI.IsComponentEnabled<MusicStartTag>(SystemAPI.GetSingletonEntity<GameManagerTag>()) == false) return;
-            
             var ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
-            var dt = SystemAPI.Time.DeltaTime;
-
+            var gmEntity = SystemAPI.GetSingletonEntity<GameManagerTag>();
+            var gmAuthoring = SystemAPI.GetComponent<GameManagerAuthoring>(gmEntity);
+            
             var cubeNodeJob = new MusicNodeCubeJob()
             {
                 ECB = ecb.AsParallelWriter(),
-                DeltaTime = dt,
+                CurrentTime = GetBGMTime(),
+                BPM = gmAuthoring.BPM,
             };
 
             state.Dependency = cubeNodeJob.ScheduleParallel(state.Dependency);
         }
+
+        [BurstCompile(CompileSynchronously = true)]
+        float GetBGMTime() => Managers.Sound.GetAudioSource(SoundType.BGM).time;
     }
 }

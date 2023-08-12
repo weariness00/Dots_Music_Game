@@ -29,7 +29,7 @@ namespace Script.JudgePanel
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            if (Input.GetKeyDown(KeyCode.A) == false) return; 
+            if (Input.GetKeyDown(KeyCode.A) == false) return;
 
             var ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
             var gmEntity = SystemAPI.GetSingletonEntity<GameManagerTag>();
@@ -42,6 +42,8 @@ namespace Script.JudgePanel
             Managers.Sound.Play(pistolPanelSound.Clip, SoundType.Effect);
 
             var nearPistolNodeEntity = SystemAPI.GetComponent<NearNodeEntity>(gmEntity).PistolNode;
+            if (nearPistolNodeEntity == Entity.Null) return;
+            
             var nearPistolNodeAspect = SystemAPI.GetAspect<MusicNodeAspect>(nearPistolNodeEntity);
             var dis = math.distance(nearPistolNodeAspect.Position, float3.zero);
             var judge = pistolPanelAspect.Judge(dis);
@@ -62,7 +64,6 @@ namespace Script.JudgePanel
                     gmAuthoring.ValueRW.Perfect();
                     break;
             }
-            ecb.DestroyEntity(nearPistolNodeEntity);
             
             ecb.AddComponent<MusicNodeRemoveTag>(gmEntity);
         }

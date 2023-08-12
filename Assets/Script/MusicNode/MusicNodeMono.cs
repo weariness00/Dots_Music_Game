@@ -17,7 +17,6 @@ namespace Script.MusicNode
             var entity = GetEntity(authoring.gameObject, TransformUsageFlags.Dynamic);
             AddComponent<MusicNodeTag>(entity);
             AddComponent(entity, new MusicNodeAuthoring(){NodeInfo = new MusicNodeInfo()});
-            AddComponent(entity, new CurrentTime(){Time = 0f});
         }
     }
 }

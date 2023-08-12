@@ -12,164 +12,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64c876d8e2c743b0bcd29a720cb7f3f6, type: 3}
   m_Name: jj
   m_EditorClassIdentifier: 
+  BPM_Speed: 1
+  clip: {fileID: 8300000, guid: 119bc66cbdb95d242b258e025e1d1aea, type: 3}
   NodeList:
   - order: 0
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 1.0644203
-      y: 0
-      z: 0
-    LenthToDestination: 1.0644203
+      x: 7.59919
+      y: 0.0000019073486
+      z: 2.8753676
+    LenthToDestination: 8.124989
   - order: 1
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 1.358054
-      y: 0.0000019073486
-      z: 0
-    LenthToDestination: 1.358054
+      x: 11.638398
+      y: 0
+      z: -0.88999695
+    LenthToDestination: 11.672378
   - order: 2
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 5.101871
-      y: 0
-      z: 0
-    LenthToDestination: 5.101871
+      x: 12.186086
+      y: 0.0000019073486
+      z: 4.997662
+    LenthToDestination: 13.171079
   - order: 3
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -5.7625465
+      x: 15.6776085
       y: 0
-      z: 0
-    LenthToDestination: 5.7625465
+      z: -2.25922
+    LenthToDestination: 15.839554
   - order: 4
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 6.0561795
+      x: 17.936827
       y: 0
-      z: 0
-    LenthToDestination: 6.0561795
+      z: -0.88999695
+    LenthToDestination: 17.958893
   - order: 5
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 6.2764025
-      y: 0
-      z: 0
-    LenthToDestination: 6.2764025
+      x: 19.169127
+      y: 0.0000019073486
+      z: 5.887658
+    LenthToDestination: 20.052929
   - order: 6
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 8.845692
+      x: 20.059122
       y: 0
-      z: 0
-    LenthToDestination: 8.845692
+      z: 2.053833
+    LenthToDestination: 20.163992
   - order: 7
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -9.653185
+      x: 20.743736
       y: 0
-      z: 0
-    LenthToDestination: 9.653185
+      z: -8.420724
+    LenthToDestination: 22.387747
   - order: 8
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -9.726591
+      x: 22.455261
       y: 0
-      z: 0
-    LenthToDestination: 9.726591
+      z: -5.066127
+    LenthToDestination: 23.019653
   - order: 9
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -10.974533
+      x: 22.93449
       y: 0
-      z: 0
-    LenthToDestination: 10.974533
+      z: -2.6699862
+    LenthToDestination: 23.089384
   - order: 10
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: 10.974533
+      x: 21.839111
       y: 0
-      z: 0
-    LenthToDestination: 10.974533
+      z: -7.736111
+    LenthToDestination: 23.16882
   - order: 11
     NodeEntityTypeIndex: 0
     judgePanelType: 0
     StartPosition:
-      x: -11.268165
+      x: 23.6191
       y: 0
-      z: 0
-    LenthToDestination: 11.268165
-  - order: 12
-    NodeEntityTypeIndex: 0
-    judgePanelType: 0
-    StartPosition:
-      x: -11.635204
-      y: 0
-      z: 0
-    LenthToDestination: 11.635204
-  - order: 13
-    NodeEntityTypeIndex: 0
-    judgePanelType: 0
-    StartPosition:
-      x: -13.470412
-      y: 0
-      z: 0
-    LenthToDestination: 13.470412
-  - order: 14
-    NodeEntityTypeIndex: 0
-    judgePanelType: 0
-    StartPosition:
-      x: -20.517603
-      y: 0
-      z: 0
-    LenthToDestination: 20.517603
-  - order: 15
-    NodeEntityTypeIndex: 0
-    judgePanelType: 0
-    StartPosition:
-      x: -23.674158
-      y: 0
-      z: 0
-    LenthToDestination: 23.674158
-  - order: 16
-    NodeEntityTypeIndex: 0
-    judgePanelType: 0
-    StartPosition:
-      x: -24.775278
-      y: 0
-      z: 0
-    LenthToDestination: 24.775278
-  - order: 17
-    NodeEntityTypeIndex: 0
-    judgePanelType: 0
-    StartPosition:
-      x: -26.170038
-      y: 0
-      z: 0
-    LenthToDestination: 26.170038
-  - order: 18
-    NodeEntityTypeIndex: 0
-    judgePanelType: 0
-    StartPosition:
-      x: -32.556557
-      y: -0.0000019073486
-      z: 0
-    LenthToDestination: 32.556557
-  - order: 19
-    NodeEntityTypeIndex: 0
-    judgePanelType: 0
-    StartPosition:
-      x: -34.02472
-      y: -0.0000019073486
-      z: 0
-    LenthToDestination: 34.02472
+      z: 2.8069053
+    LenthToDestination: 23.785303
