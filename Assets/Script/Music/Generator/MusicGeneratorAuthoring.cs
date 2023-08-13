@@ -1,8 +1,6 @@
-﻿using Define;
-using Script.JudgePanel;
-using Script.JudgPanel;
+﻿using Script.JudgePanel;
 using Unity.Entities;
-using UnityEngine.UI;
+using MusicNodeInfo = Script.MusicNode.MusicNodeInfo;
 
 namespace Script.Music.Generator
 {

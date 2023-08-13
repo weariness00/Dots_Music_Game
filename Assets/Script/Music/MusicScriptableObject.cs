@@ -1,5 +1,5 @@
-﻿using Define;
-using UnityEngine;
+﻿using UnityEngine;
+using MusicNodeInfo = Script.MusicNode.MusicNodeInfo;
 
 namespace Script.Music
 {

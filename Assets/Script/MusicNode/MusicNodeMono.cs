@@ -1,7 +1,4 @@
-﻿using System;
-using Define;
-using Unity.Entities;
-using Unity.Mathematics;
+﻿using Unity.Entities;
 using UnityEngine;
 
 namespace Script.MusicNode

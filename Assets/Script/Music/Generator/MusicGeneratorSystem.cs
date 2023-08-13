@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Define;
 using Script.JudgePanel;
-using Script.JudgPanel;
 using Script.Manager;
-using Script.Music.Canvas;
 using Script.MusicNode;
+using Script.MusicNode.Canvas;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -13,7 +11,7 @@ using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using MusicNodeInfo = Script.MusicNode.MusicNodeInfo;
 
 namespace Script.Music.Generator
 {
@@ -32,6 +30,9 @@ namespace Script.Music.Generator
             state.RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<GameManagerTag>();
             state.RequireForUpdate<MusicGeneratorTag>();
+            state.RequireForUpdate<PistolPanelTag>();
+            state.RequireForUpdate<RiflePanelTag>();
+            state.RequireForUpdate<SniperPanelTag>();
         }
 
         [BurstCompile]
@@ -70,11 +71,17 @@ namespace Script.Music.Generator
             };
 
             bool isDelete = SystemAPI.IsComponentEnabled<MusicGeneratorDeleteTag>(entity);
+            var nodeInfoCanvas = MusicNodeInfoCanvasController.Instance;
 
             PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
             if (physicsWorld.CastRay(ray, out var hitNode))
             {
                 if(isDelete) ecb.DestroyEntity(hitNode.Entity);
+                else
+                {
+                    nodeInfoCanvas.SetNodeInfo(SystemAPI.GetComponent<MusicNodeAuthoring>(hitNode.Entity).NodeInfo);
+                    nodeInfoCanvas.SetNodeEntity(hitNode.Entity);
+                }
                 return;
             }
             ray.Filter.CollidesWith = 1u << 6; // 6 : Generator Plan
@@ -107,30 +114,40 @@ namespace Script.Music.Generator
                 };
                 ecb.SetComponent(newNodeEntity, newNodeTransform);
 
+                var calStartPosition = CalStartPointToNode(clickPosition, gmAuthoring.BPM);
+                var lenToDes = math.distance(calStartPosition, float3.zero);
+                var perfectTime = lenToDes;
                 switch (generatorAspect.JudgePanelType) // 판단 노드에 따른 tag 부여
                 {
                     case JudgePanelType.Pistol:
                         ecb.AddComponent<PistolNodeTag>(newNodeEntity);
+                        perfectTime -= SystemAPI.GetComponent<JudgePanelAuthoring>(SystemAPI.GetSingletonEntity<PistolPanelTag>()).Interval.Distance;
                         break;
                     case JudgePanelType.Rifle:
                         ecb.AddComponent<RifleNodeTag>(newNodeEntity);
+                        perfectTime -= SystemAPI.GetComponent<JudgePanelAuthoring>(SystemAPI.GetSingletonEntity<RiflePanelTag>()).Interval.Distance;
                         break;
                     case JudgePanelType.Sniper:
                         ecb.AddComponent<SniperNodeTag>(newNodeEntity);
+                        perfectTime -= SystemAPI.GetComponent<JudgePanelAuthoring>(SystemAPI.GetSingletonEntity<SniperPanelTag>()).Interval.Distance;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
-                var calStartPosition = CalStartPointToNode(clickPosition, gmAuthoring.BPM);
+                
                 var nodeInfo = new MusicNodeInfo()
                 {
-                    NodeEntityTypeIndex = entityIndex,
+                    nodeEntityType = (MusicNodeType)entityIndex,
                     judgePanelType = generatorAspect.JudgePanelType,
                     StartPosition = calStartPosition,
-                    LenthToDestination = math.distance(calStartPosition, float3.zero),
+                    LenthToDestination = lenToDes,
+                    
+                    perfectTime = perfectTime,
                 };
-
+                
+                nodeInfoCanvas.SetNodeInfo(nodeInfo);
+                nodeInfoCanvas.SetNodeEntity(newNodeEntity);
+                
                 generatorAspect.NodeListScriptableObject.Add(new MusicScriptableObjectData() { NodeInfo = nodeInfo });
                 ecb.SetComponent(newNodeEntity, new MusicNodeAuthoring() { NodeInfo = nodeInfo });
             }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Define;
 using Script.JudgePanel;
 using Script.Manager;
 using Script.Music.Generator;
@@ -10,6 +9,8 @@ using Unity.Entities;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using MusicNodeInfo = Script.MusicNode.MusicNodeInfo;
+using MusicNodeLenthToDestinationSort = Script.MusicNode.MusicNodeLenthToDestinationSort;
 
 namespace Script.Music.Canvas
 {
@@ -20,8 +21,13 @@ namespace Script.Music.Canvas
         public string path;
         public TMP_InputField nameField;
         public TMP_InputField bpmField;
+        
+        [Space]
         public Slider musicBar;
         public Toggle musicPlayAndStop;
+        public TMP_Text musicPlayTimeText;
+        
+        [Space]
         public Toggle nodeDeleteToggle;
         public TMP_Dropdown musicSelect;
 
@@ -127,6 +133,7 @@ namespace Script.Music.Canvas
             float musicLenth = musicAudio.clip.length;
             while (true)
             {
+                musicPlayTimeText.text = TimeSpan.FromSeconds(musicAudio.time).ToString(@"mm\:ss");
                 musicBar.value = musicAudio.time / musicLenth;
                 yield return null;
             }

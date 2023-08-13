@@ -50,7 +50,7 @@ namespace Script.Music
                 {
                     generatorAspect.NodeListScriptableObject.Add( new MusicScriptableObjectData() { NodeInfo = nodeInfo });
                     
-                    var newNodeEntity = ecb.Instantiate(generatorAspect.NodeEntities[nodeInfo.NodeEntityTypeIndex].Entity);
+                    var newNodeEntity = ecb.Instantiate(generatorAspect.NodeEntities[(int)nodeInfo.nodeEntityType].Entity);
                     LocalTransform newNodeTransform = new LocalTransform()
                     {
                         Position = nodeInfo.StartPosition,
@@ -71,7 +71,7 @@ namespace Script.Music
                             break;
                     }
 
-                    switch (nodeInfo.NodeEntityTypeIndex)
+                    switch (nodeInfo.nodeEntityType)
                     {
                         case 0: // Cube
                             ecb.AddComponent<MusicNodeCubeTag>(newNodeEntity);
