@@ -14,6 +14,7 @@ namespace Script.Manager
         {
             var entity = GetEntity(authoring.gameObject, TransformUsageFlags.Dynamic);
             AddComponent<GameManagerTag>(entity);
+            AddComponent<GameManagerInitTag>(entity);
             AddComponent<MusicStartTag>(entity);
             AddComponent(entity, new GameManagerAuthoring()
             {

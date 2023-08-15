@@ -848,6 +848,7 @@ MonoBehaviour:
   musicPlayTimeText: {fileID: 1647686887}
   nodeDeleteToggle: {fileID: 1149387160}
   musicSelect: {fileID: 139972427}
+  judgePanelSelect: {fileID: 1064114160}
 --- !u!1 &116703274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2900,7 +2901,7 @@ MonoBehaviour:
   - {fileID: 868148040}
   - {fileID: 620024223}
   - {fileID: 2064211858}
-  perfectTime: {fileID: 1733546310}
+  perfectTimeField: {fileID: 1733546310}
 --- !u!114 &443476763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3299,7 +3300,20 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 443476762}
+        m_TargetAssemblyTypeName: Script.MusicNode.Canvas.MusicNodeInfoCanvasController,
+          Assembly-CSharp
+        m_MethodName: ChangeNodeStartPosition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3566,7 +3580,20 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 443476762}
+        m_TargetAssemblyTypeName: Script.MusicNode.Canvas.MusicNodeInfoCanvasController,
+          Assembly-CSharp
+        m_MethodName: ChangeNodeStartPosition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6521,10 +6548,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 109175660}
-        m_TargetAssemblyTypeName: Script.Music.Canavs.MusicGeneratorCanvasController,
+        m_TargetAssemblyTypeName: Script.Music.Canvas.MusicGeneratorCanvasController,
           Assembly-CSharp
         m_MethodName: JudgPanelType
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6976,7 +7003,20 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 443476762}
+        m_TargetAssemblyTypeName: Script.MusicNode.Canvas.MusicNodeInfoCanvasController,
+          Assembly-CSharp
+        m_MethodName: ChangeNodeStartPosition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9043,7 +9083,20 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 443476762}
+        m_TargetAssemblyTypeName: Script.MusicNode.Canvas.MusicNodeInfoCanvasController,
+          Assembly-CSharp
+        m_MethodName: ChangeNodePerfectTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -1,10 +1,14 @@
-﻿using Unity.Entities;
+﻿using System;
+using Script.JudgePanel;
+using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Script.MusicNode
 {
     public class MusicNodeMono : MonoBehaviour
     {
+
     }
     
     public class MusicNodeBaker : Baker<MusicNodeMono>

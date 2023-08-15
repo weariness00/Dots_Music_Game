@@ -30,6 +30,7 @@ namespace Script.Music.Canvas
         [Space]
         public Toggle nodeDeleteToggle;
         public TMP_Dropdown musicSelect;
+        public TMP_Dropdown judgePanelSelect;
 
         private int bpm = 1;
         
@@ -101,9 +102,9 @@ namespace Script.Music.Canvas
             _entityManager.AddComponentObject(_entity, new MusicLoadAuthoring(){MusicScriptableObject = musicData});
         }
 
-        public void JudgPanelType(Int32 index)
+        public void JudgPanelType()
         {
-            _entityManager.SetComponentData(_entity, new MusicGeneratorPanelTypeAuthoring(){PanelType = (JudgePanelType)index});
+            _entityManager.SetComponentData(_entity, new MusicGeneratorPanelTypeAuthoring(){PanelType = (JudgePanelType)judgePanelSelect.value});
         }
 
         public void MusicPlayAndStop(bool isOn)

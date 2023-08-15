@@ -1,13 +1,22 @@
 ﻿using Script.JudgePanel;
 using Unity.Entities;
+using Unity.VisualScripting;
 
 namespace Script.Manager
 {
     public struct GameManagerTag : IComponentData { }
+    public struct GameManagerInitTag : IComponentData {}
 
     public struct NearNodeEntity : IComponentData
     {
         public Entity PistolNode;
+    }
+
+    public struct JudgePanelSingletonEntity : IComponentData
+    {
+        public Entity PistolEntity;
+        public Entity RifleEntity;
+        public Entity SniperEntity;
     }
     
     public struct GameManagerAuthoring : IComponentData

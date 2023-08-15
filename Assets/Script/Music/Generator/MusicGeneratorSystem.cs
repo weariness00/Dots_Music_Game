@@ -53,20 +53,18 @@ namespace Script.Music.Generator
             var gmAuthoring = SystemAPI.GetComponent<GameManagerAuthoring>(gmEntity);
 
             var main = GetCamera();
-            Vector3 mousePosition = main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, main.nearClipPlane));
-            Vector3 cameraPosition = main.transform.position;
-            float3 clickDirection = mousePosition - cameraPosition;
+            var mouseRay = main.ScreenPointToRay(Input.mousePosition);
             
             var ray = new RaycastInput()
             {
-                Start = cameraPosition,
-                End = clickDirection * 1000f,
+                Start = mouseRay.origin,
+                End = mouseRay.GetPoint(100f),
                 Filter = new CollisionFilter
                 {
                     GroupIndex = 0,
                     // 1u << 6는 Physics Category Names에서 6번째의 레이어마스크이다.
                     BelongsTo = 1u << 0,
-                    CollidesWith = 1u << 9,   // 9 : Music Node
+                    CollidesWith = (uint)LayerMask.GetMask("Music Node"),   // 9 : Music Node
                 }
             };
 
@@ -76,19 +74,27 @@ namespace Script.Music.Generator
             PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
             if (physicsWorld.CastRay(ray, out var hitNode))
             {
+                if (IsUIHit()) return;
+                nodeInfoCanvas.NodeEntity = Entity.Null;
+
                 if(isDelete) ecb.DestroyEntity(hitNode.Entity);
                 else
                 {
+                    foreach (var (tag, nodeInfoSingletonEntity) in SystemAPI.Query<MusicNodeInfoSingletonTag>().WithEntityAccess())
+                        ecb.RemoveComponent<MusicNodeInfoSingletonTag>(nodeInfoSingletonEntity);
+                    ecb.AddComponent<MusicNodeInfoSingletonTag>(hitNode.Entity);
+                    
                     nodeInfoCanvas.SetNodeInfo(SystemAPI.GetComponent<MusicNodeAuthoring>(hitNode.Entity).NodeInfo);
                     nodeInfoCanvas.SetNodeEntity(hitNode.Entity);
                 }
                 return;
             }
-            ray.Filter.CollidesWith = 1u << 6; // 6 : Generator Plan
+            ray.Filter.CollidesWith = (uint)LayerMask.GetMask("GenerateNodePlan"); // 6 : Generator Plan
             if (physicsWorld.CastRay(ray, out var hit) && isDelete == false)
             {
                 if (IsUIHit()) return;
-
+                nodeInfoCanvas.NodeEntity = Entity.Null;
+                
                 float3 clickPosition = hit.Position;
 
                 foreach (var musicNodeAuthoring in SystemAPI.Query<MusicNodeAuthoring>())
@@ -115,41 +121,35 @@ namespace Script.Music.Generator
                 ecb.SetComponent(newNodeEntity, newNodeTransform);
 
                 var calStartPosition = CalStartPointToNode(clickPosition, gmAuthoring.BPM);
-                var lenToDes = math.distance(calStartPosition, float3.zero);
-                var perfectTime = lenToDes;
                 switch (generatorAspect.JudgePanelType) // 판단 노드에 따른 tag 부여
                 {
                     case JudgePanelType.Pistol:
                         ecb.AddComponent<PistolNodeTag>(newNodeEntity);
-                        perfectTime -= SystemAPI.GetComponent<JudgePanelAuthoring>(SystemAPI.GetSingletonEntity<PistolPanelTag>()).Interval.Distance;
                         break;
                     case JudgePanelType.Rifle:
                         ecb.AddComponent<RifleNodeTag>(newNodeEntity);
-                        perfectTime -= SystemAPI.GetComponent<JudgePanelAuthoring>(SystemAPI.GetSingletonEntity<RiflePanelTag>()).Interval.Distance;
                         break;
                     case JudgePanelType.Sniper:
                         ecb.AddComponent<SniperNodeTag>(newNodeEntity);
-                        perfectTime -= SystemAPI.GetComponent<JudgePanelAuthoring>(SystemAPI.GetSingletonEntity<SniperPanelTag>()).Interval.Distance;
                         break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
                 }
                 
                 var nodeInfo = new MusicNodeInfo()
                 {
                     nodeEntityType = (MusicNodeType)entityIndex,
                     judgePanelType = generatorAspect.JudgePanelType,
-                    StartPosition = calStartPosition,
-                    LenthToDestination = lenToDes,
-                    
-                    perfectTime = perfectTime,
                 };
-                
-                nodeInfoCanvas.SetNodeInfo(nodeInfo);
-                nodeInfoCanvas.SetNodeEntity(newNodeEntity);
-                
+                nodeInfo.SetStartPosition(calStartPosition);
+
                 generatorAspect.NodeListScriptableObject.Add(new MusicScriptableObjectData() { NodeInfo = nodeInfo });
                 ecb.SetComponent(newNodeEntity, new MusicNodeAuthoring() { NodeInfo = nodeInfo });
+
+                foreach (var (tag, nodeInfoSingletonEntity) in SystemAPI.Query<MusicNodeInfoSingletonTag>().WithEntityAccess())
+                    ecb.RemoveComponent<MusicNodeInfoSingletonTag>(nodeInfoSingletonEntity);
+                ecb.AddComponent<MusicNodeInfoSingletonTag>(newNodeEntity);
+                
+                nodeInfoCanvas.SetNodeInfo(nodeInfo);
+                nodeInfoCanvas.SetNodeEntity();
             }
         }
 

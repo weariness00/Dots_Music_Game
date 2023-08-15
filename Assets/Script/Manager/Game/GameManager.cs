@@ -1,8 +1,6 @@
-﻿using System;
-using Script.Music;
+﻿using Script.Music;
 using Unity.Entities;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Script.Manager
 {
