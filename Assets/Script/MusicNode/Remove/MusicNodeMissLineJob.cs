@@ -26,7 +26,7 @@ namespace Script.MusicNode.Remove
                 GM_Authoring.Miss();
                 
                 ECB.SetComponent(sortKey, GM_Entity, GM_Authoring);
-                ECB.AddComponent(sortKey, GM_Entity, new MusicNodeRemoveTag());
+                ECB.SetComponentEnabled<PistolNodeRemoveTag>(sortKey, GM_Entity, true);
             }
         }
     }

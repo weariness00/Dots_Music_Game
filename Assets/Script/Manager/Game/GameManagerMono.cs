@@ -1,4 +1,5 @@
 ﻿using Script.Music;
+using Script.MusicNode;
 using Unity.Entities;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ namespace Script.Manager
             var entity = GetEntity(authoring.gameObject, TransformUsageFlags.Dynamic);
             AddComponent<GameManagerTag>(entity);
             AddComponent<GameManagerInitTag>(entity);
+            AddComponent<PistolNodeRemoveTag>(entity);
+            AddComponent<RifleNodeRemoveTag>(entity);
+            AddComponent<SniperNodeRemoveTag>(entity);
             AddComponent<MusicStartTag>(entity);
             AddComponent(entity, new GameManagerAuthoring()
             {

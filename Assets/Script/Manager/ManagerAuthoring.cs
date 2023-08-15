@@ -10,6 +10,8 @@ namespace Script.Manager
     public struct NearNodeEntity : IComponentData
     {
         public Entity PistolNode;
+        public Entity RifleNode;
+        public Entity SniperNode;
     }
 
     public struct JudgePanelSingletonEntity : IComponentData

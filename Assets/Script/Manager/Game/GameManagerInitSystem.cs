@@ -1,4 +1,5 @@
 ﻿using Script.JudgePanel;
+using Script.MusicNode;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.VisualScripting;
@@ -31,13 +32,23 @@ namespace Script.Manager.Game
         {
             var ecb = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
             var gmEntity = SystemAPI.GetSingletonEntity<GameManagerTag>();
+
+            {
+                JudgePanelSingletonEntity judgePanelSingletonEntity;
+                judgePanelSingletonEntity.PistolEntity = SystemAPI.GetSingletonEntity<PistolPanelTag>();
+                judgePanelSingletonEntity.RifleEntity = SystemAPI.GetSingletonEntity<RiflePanelTag>();
+                judgePanelSingletonEntity.SniperEntity = SystemAPI.GetSingletonEntity<SniperPanelTag>();
             
-            JudgePanelSingletonEntity judgePanelSingletonEntity;
-            judgePanelSingletonEntity.PistolEntity = SystemAPI.GetSingletonEntity<PistolPanelTag>();
-            judgePanelSingletonEntity.RifleEntity = SystemAPI.GetSingletonEntity<RiflePanelTag>();
-            judgePanelSingletonEntity.SniperEntity = SystemAPI.GetSingletonEntity<SniperPanelTag>();
+                ecb.AddComponent(gmEntity, judgePanelSingletonEntity);
+            }
             
-            ecb.AddComponent(gmEntity, judgePanelSingletonEntity);
+            { // Node Remove Init
+                ecb.SetComponentEnabled<PistolNodeRemoveTag>(gmEntity,false);    
+                ecb.SetComponentEnabled<RifleNodeRemoveTag>(gmEntity,false);    
+                ecb.SetComponentEnabled<SniperNodeRemoveTag>(gmEntity,false);    
+            }
+            
+            
             ecb.RemoveComponent<GameManagerInitTag>(gmEntity);
             
             state.Enabled = false;

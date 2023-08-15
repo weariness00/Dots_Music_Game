@@ -19,6 +19,8 @@ namespace Script.Music.Generator
             AddComponent<MusicGeneratorInitTag>(entity);   
             AddComponent<MusicGeneratorTag>(entity);
             AddComponent<MusicGeneratorDeleteTag>(entity);
+            AddComponent<MusicNodeSpawnPerfectLineTag>(entity);
+            SetComponentEnabled<MusicNodeSpawnPerfectLineTag>(entity, false);
             
             AddComponent(entity, new MusicGeneratorPanelTypeAuthoring(){PanelType = 0});
 

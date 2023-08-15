@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 using Script.JudgePanel;
 using Script.Manager;
 using Script.Music.Generator;
@@ -29,6 +30,7 @@ namespace Script.Music.Canvas
         
         [Space]
         public Toggle nodeDeleteToggle;
+        public Toggle spawnPerfectToggle;
         public TMP_Dropdown musicSelect;
         public TMP_Dropdown judgePanelSelect;
 
@@ -95,6 +97,8 @@ namespace Script.Music.Canvas
                 return;
             }
 
+            bpmField.text = musicData.BPM_Speed.ToString(CultureInfo.CurrentCulture);
+
             var audioSource = Managers.Sound.GetAudioSource(SoundType.BGM);
             audioSource.clip = musicData.clip;
             
@@ -149,6 +153,7 @@ namespace Script.Music.Canvas
             float currentTime = value * musicLenth;
 
             musicAudio.time = currentTime;
+            musicPlayTimeText.text = TimeSpan.FromSeconds(currentTime).ToString(@"mm\:ss");
         }
 
         public void SelectBGM()
@@ -169,6 +174,11 @@ namespace Script.Music.Canvas
         public void IsOnNodeDelete()
         {
             _entityManager.SetComponentEnabled<MusicGeneratorDeleteTag>(_entity, nodeDeleteToggle.isOn); 
+        }
+
+        public void IsSpawnPerfect()
+        {
+            _entityManager.SetComponentEnabled<MusicNodeSpawnPerfectLineTag>(_entity, spawnPerfectToggle.isOn); 
         }
         
     }

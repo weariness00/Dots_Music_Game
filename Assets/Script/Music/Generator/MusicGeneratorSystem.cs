@@ -139,7 +139,9 @@ namespace Script.Music.Generator
                     nodeEntityType = (MusicNodeType)entityIndex,
                     judgePanelType = generatorAspect.JudgePanelType,
                 };
-                nodeInfo.SetStartPosition(calStartPosition);
+                nodeInfo.SetAllFromStartPosition(calStartPosition);
+                
+                if(SystemAPI.IsComponentEnabled<MusicNodeSpawnPerfectLineTag>(entity)) nodeInfo.SetAllFromPerfectTime(GetAudioSource().time);
 
                 generatorAspect.NodeListScriptableObject.Add(new MusicScriptableObjectData() { NodeInfo = nodeInfo });
                 ecb.SetComponent(newNodeEntity, new MusicNodeAuthoring() { NodeInfo = nodeInfo });

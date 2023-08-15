@@ -98,7 +98,7 @@ namespace Script.MusicNode.Canvas
             newStartPosition.x = float.Parse(startPosition[0].text);
             newStartPosition.y = float.Parse(startPosition[1].text);
             newStartPosition.z = float.Parse(startPosition[2].text);
-            nodeAuthoring.NodeInfo.SetStartPosition(newStartPosition);
+            nodeAuthoring.NodeInfo.SetAllFromStartPosition(newStartPosition);
 
             SetNodeInfo(nodeAuthoring.NodeInfo);
             
@@ -120,19 +120,22 @@ namespace Script.MusicNode.Canvas
             var moveDirToSecond = nodeInfo.StartPosition * gmAuthoring.BPM / nodeInfo.LenthToDestination;
             var newStartPosition = moveDirToSecond * perfectTime;
 
+            float judgePanelDistance = 1f;
             switch (nodeInfo.judgePanelType)
             {
                 case JudgePanelType.Pistol:
-                    var judgePanelDistance = entityManager.GetComponentData<JudgePanelAuthoring>(judgeEntities.PistolEntity).Interval.Distance;
-                    newStartPosition += moveDirToSecond * judgePanelDistance / gmAuthoring.BPM;
+                    judgePanelDistance = entityManager.GetComponentData<JudgePanelAuthoring>(judgeEntities.PistolEntity).Interval.Distance;
                     break;
                 case JudgePanelType.Rifle:
+                    judgePanelDistance = entityManager.GetComponentData<JudgePanelAuthoring>(judgeEntities.RifleEntity).Interval.Distance;
                     break;
                 case JudgePanelType.Sniper:
+                    judgePanelDistance = entityManager.GetComponentData<JudgePanelAuthoring>(judgeEntities.SniperEntity).Interval.Distance;
                     break;
             }
+            newStartPosition += moveDirToSecond * judgePanelDistance / gmAuthoring.BPM;
 
-            nodeInfo.SetStartPosition(newStartPosition);
+            nodeInfo.SetAllFromStartPosition(newStartPosition);
             
             SetNodeInfo(nodeInfo);
             

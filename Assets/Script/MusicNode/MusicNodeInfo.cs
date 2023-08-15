@@ -28,11 +28,44 @@ namespace Script.MusicNode
 
         public float perfectTime;
         
-        public void SetStartPosition(float3 startPosition)
+        public void SetAllFromStartPosition(float3 startPosition)
         {
             StartPosition = startPosition;
             LenthToDestination = math.distance(startPosition, float3.zero);
             SetPerfectTime();
+        }
+
+        public void SetAllFromDestination(float dest)
+        {
+            var dir = StartPosition / LenthToDestination;
+            LenthToDestination = dest;
+            SetPerfectTime();
+
+            StartPosition = dir * dest;
+        }
+
+        public void SetAllFromPerfectTime(float time)
+        {
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var gmEntity = entityManager.CreateEntityQuery(typeof(GameManagerTag)).GetSingletonEntity();
+            var gmAuthoring = entityManager.GetComponentData<GameManagerAuthoring>(gmEntity);
+            var judgePanelEntities = entityManager.GetComponentData<JudgePanelSingletonEntity>(gmEntity);
+            
+            float dest = time * gmAuthoring.BPM;
+            switch (judgePanelType)
+            {
+                case JudgePanelType.Pistol:
+                    dest += entityManager.GetComponentData<JudgePanelAuthoring>(judgePanelEntities.PistolEntity).Interval.Distance;
+                    break;
+                case JudgePanelType.Rifle:
+                    dest += entityManager.GetComponentData<JudgePanelAuthoring>(judgePanelEntities.RifleEntity).Interval.Distance;
+                    break;
+                case JudgePanelType.Sniper:
+                    dest += entityManager.GetComponentData<JudgePanelAuthoring>(judgePanelEntities.SniperEntity).Interval.Distance;
+                    break;
+            }
+
+            SetAllFromDestination(dest);
         }
         
         public void SetJudgePanelType(JudgePanelType type, Entity nodeEntity)

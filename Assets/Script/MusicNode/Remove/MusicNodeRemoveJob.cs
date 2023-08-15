@@ -9,7 +9,7 @@ namespace Script.MusicNode.Remove
         
         public Entity GM_Entity;
         public NearNodeEntity NearNodeEntity;
-        
+
         private void Execute(MusicNodeAspect aspect, [ChunkIndexInQuery]int sortKey)
         {
             aspect.Order--;
@@ -19,7 +19,7 @@ namespace Script.MusicNode.Remove
                 ECB.SetComponent(sortKey, GM_Entity, NearNodeEntity);
             }
             else if (aspect.Order < 0)
-                ECB.DestroyEntity(sortKey,aspect.Entity);
+                ECB.DestroyEntity(sortKey, aspect.Entity);
         }
     }
 }

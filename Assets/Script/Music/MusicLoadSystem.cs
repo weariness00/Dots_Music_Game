@@ -3,6 +3,7 @@ using Script.JudgPanel;
 using Script.Manager;
 using Script.Music.Generator;
 using Script.MusicNode;
+using Script.MusicNode.Canvas;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -32,6 +33,10 @@ namespace Script.Music
             var entity = SystemAPI.GetSingletonEntity<MusicLoadTag>();
             var gmEntity = SystemAPI.GetSingletonEntity<GameManagerTag>();
             var musicData = SystemAPI.ManagedAPI.GetComponent<MusicLoadAuthoring>(entity);
+
+            {   // Set Canavs
+                MusicNodeInfoCanvasController.Instance.NodeEntity = Entity.Null;
+            }
             
             {   // Set Game Manager Data
                 ecb.SetComponent(gmEntity, new GameManagerAuthoring(){BPM = musicData.MusicScriptableObject.BPM_Speed});

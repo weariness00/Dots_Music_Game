@@ -9,7 +9,9 @@ namespace Script.MusicNode
     public struct MusicNodeCubeTag : IComponentData {}
     
     public struct MusicNodeInfoSingletonTag : IComponentData {}
-    public struct MusicNodeRemoveTag : IComponentData {}
+    public struct PistolNodeRemoveTag : IComponentData, IEnableableComponent {}
+    public struct RifleNodeRemoveTag : IComponentData, IEnableableComponent {}
+    public struct SniperNodeRemoveTag : IComponentData, IEnableableComponent {}
 
     public struct MusicNodeAuthoring : IComponentData
     {
