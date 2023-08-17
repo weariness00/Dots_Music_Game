@@ -1,10 +1,8 @@
 ﻿using Script.Manager;
-using Script.Music;
-using Script.MusicNode.Types;
 using Unity.Burst;
 using Unity.Entities;
 
-namespace Script.MusicNode
+namespace Script.MusicNode.Types
 {
     public partial struct MusicNodeCubeSystem : ISystem
     {

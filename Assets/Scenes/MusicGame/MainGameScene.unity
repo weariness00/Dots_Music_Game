@@ -396,11 +396,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   judgeInterval:
-    Distance: 0
-    PerfectInterval: 0
-    GoodInterval: 0
-    BadInterval: 0
-    MissInterval: 0
+    Distance: 7
+    PerfectInterval: 1
+    GoodInterval: 2
+    BadInterval: 3
+    MissInterval: 4
   effectSound: {fileID: 0}
 --- !u!1 &1208235322
 GameObject:
@@ -568,11 +568,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   judgeInterval:
-    Distance: 0
-    PerfectInterval: 0
-    GoodInterval: 0
-    BadInterval: 0
-    MissInterval: 0
+    Distance: 10
+    PerfectInterval: 1
+    GoodInterval: 2
+    BadInterval: 3
+    MissInterval: 4
   effectSound: {fileID: 0}
 --- !u!4 &543450651812515793
 Transform:

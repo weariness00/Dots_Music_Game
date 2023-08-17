@@ -1,5 +1,4 @@
 ﻿using Script.JudgePanel;
-using Script.JudgPanel;
 using Script.Manager;
 using Unity.Entities;
 using Unity.Mathematics;

@@ -1,7 +1,6 @@
-﻿using Script.JudgePanel;
-using Unity.Entities;
+﻿using Unity.Entities;
 
-namespace Script.JudgPanel
+namespace Script.JudgePanel
 {
     public readonly partial struct JudgePanelAspect : IAspect
     {

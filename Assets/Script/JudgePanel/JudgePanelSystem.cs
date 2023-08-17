@@ -1,11 +1,6 @@
-﻿using System;
-using Script.JudgPanel;
-using Script.Manager;
-using Script.MusicNode;
-using Script.UI;
+﻿using Script.Manager;
 using Unity.Burst;
 using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 

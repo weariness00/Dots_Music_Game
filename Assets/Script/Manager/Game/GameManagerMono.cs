@@ -3,7 +3,7 @@ using Script.MusicNode;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Script.Manager
+namespace Script.Manager.Game
 {
     public class GameManagerMono : MonoBehaviour
     {

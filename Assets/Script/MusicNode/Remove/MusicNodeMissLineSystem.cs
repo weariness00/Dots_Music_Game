@@ -1,10 +1,8 @@
 ﻿using Script.JudgePanel;
-using Script.JudgPanel;
 using Script.Manager;
 using Script.Music;
 using Unity.Burst;
 using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace Script.MusicNode.Remove

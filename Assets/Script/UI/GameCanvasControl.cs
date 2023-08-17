@@ -3,6 +3,7 @@ using Script.JudgePanel;
 using Script.Manager;
 using Script.Music;
 using TMPro;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,19 +17,26 @@ namespace Script.UI
         public TMP_Text combo;
         public TMP_Text judge;
 
+        private EntityManager _entityManager;
+        private Entity _gmEntity;
         public void Awake()
         {
             if (Instance == null) Instance = this;
         }
 
+        private void Start()
+        {
+            _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            _gmEntity = _entityManager.CreateEntityQuery(typeof(GameManagerTag)).GetSingletonEntity();
+        }
+
         public void Update()
         {
-            GameManager gm = GameManager.Instance;
-            bool isMusicStart = gm.EntityManager.IsComponentEnabled<MusicStartTag>(gm.Entity);
+            bool isMusicStart = _entityManager.IsComponentEnabled<MusicStartTag>(_gmEntity);
 
             if (isMusicStart == false) return;
 
-            var gmAuthoring = gm.EntityManager.GetComponentData<GameManagerAuthoring>(gm.Entity);
+            var gmAuthoring = _entityManager.GetComponentData<GameManagerAuthoring>(_gmEntity);
             score.text = gmAuthoring.Score.ToString();
             combo.text = gmAuthoring.Combo.ToString();
             if(gmAuthoring.JudgeType != JudgeType.None) judge.text = gmAuthoring.JudgeType.ToString();

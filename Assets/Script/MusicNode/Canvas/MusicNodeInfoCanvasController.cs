@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Script.JudgePanel;
 using Script.Manager;
-using Script.Music.Canvas;
 using TMPro;
 using Unity.Entities;
 using Unity.Mathematics;

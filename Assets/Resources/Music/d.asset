@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c876d8e2c743b0bcd29a720cb7f3f6, type: 3}
+  m_Name: d
+  m_EditorClassIdentifier: 
+  BPM_Speed: 1
+  clip: {fileID: 8300000, guid: ecbabc1788f696243a6e9bbce6f39d60, type: 3}
+  NodeList:
+  - order: 0
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: -4.998339
+      y: 0.0000019073486
+      z: 3.6446178
+    LenthToDestination: 6.1860027
+    perfectTime: 1.1860027
+  - order: 1
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 0.76363826
+      y: 0
+      z: -7.1156936
+    LenthToDestination: 7.1565523
+    perfectTime: 2.1565523
+  - order: 2
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: -5.9702377
+      y: 0
+      z: -5.137185
+    LenthToDestination: 7.8761926
+    perfectTime: 2.8761926
+  - order: 3
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 5.727263
+      y: 0.0000038146973
+      z: -6.0743737
+    LenthToDestination: 8.348626
+    perfectTime: 3.3486261
+  - order: 4
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 6.9074244
+      y: 0.0000038146973
+      z: 7.4627895
+    LenthToDestination: 10.168861
+    perfectTime: 5.1688614
+  - order: 5
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 2.0826418
+      y: 0.0000019073486
+      z: -9.96197
+    LenthToDestination: 10.17734
+    perfectTime: 5.1773396
+  - order: 6
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 10.5867605
+      y: 0.0000019073486
+      z: 3.2280877
+    LenthToDestination: 11.067974
+    perfectTime: 6.067974
+  - order: 7
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 12.912375
+      y: 0
+      z: -4.3041286
+    LenthToDestination: 13.61084
+    perfectTime: 8.61084
+  - order: 8
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: -15.133862
+      y: -0.0000019073486
+      z: -0.90248185
+    LenthToDestination: 15.160747
+    perfectTime: 10.160747
+  - order: 9
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 12.287581
+      y: 0.0000019073486
+      z: -9.128912
+    LenthToDestination: 15.3075695
+    perfectTime: 10.3075695
+  - order: 10
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 12.947086
+      y: 0
+      z: -8.365277
+    LenthToDestination: 15.414438
+    perfectTime: 10.414438
+  - order: 11
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 16.799973
+      y: 0
+      z: 3.8875928
+    LenthToDestination: 17.24391
+    perfectTime: 12.24391
+  - order: 12
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 15.515682
+      y: -0.0000019073486
+      z: -8.330567
+    LenthToDestination: 17.610643
+    perfectTime: 12.610643
+  - order: 13
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 17.598318
+      y: 0
+      z: 2.117348
+    LenthToDestination: 17.725235
+    perfectTime: 12.725235
+  - order: 14
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 19.88922
+      y: 0
+      z: 2.985115
+    LenthToDestination: 20.111984
+    perfectTime: 15.111984
+  - order: 15
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 21.242943
+      y: 0
+      z: -6.456191
+    LenthToDestination: 22.202364
+    perfectTime: 17.202364
+  - order: 16
+    nodeEntityType: 0
+    judgePanelType: 0
+    StartPosition:
+      x: 26.13715
+      y: 0.0000019073486
+      z: 0.9024725
+    LenthToDestination: 26.152725
+    perfectTime: 21.152725

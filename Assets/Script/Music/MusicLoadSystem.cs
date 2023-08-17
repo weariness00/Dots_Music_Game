@@ -1,5 +1,4 @@
 ﻿using Script.JudgePanel;
-using Script.JudgPanel;
 using Script.Manager;
 using Script.Music.Generator;
 using Script.MusicNode;

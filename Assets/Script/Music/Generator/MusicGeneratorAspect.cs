@@ -1,5 +1,4 @@
 ﻿using Script.JudgePanel;
-using Script.JudgPanel;
 using Unity.Entities;
 
 namespace Script.Music.Generator

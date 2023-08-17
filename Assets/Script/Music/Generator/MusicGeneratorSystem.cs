@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Script.JudgePanel;
 using Script.Manager;
+using Script.Music.Generator.Canvas;
 using Script.MusicNode;
 using Script.MusicNode.Canvas;
 using Unity.Burst;
@@ -152,6 +153,7 @@ namespace Script.Music.Generator
                 
                 nodeInfoCanvas.SetNodeInfo(nodeInfo);
                 nodeInfoCanvas.SetNodeEntity();
+                MusicalScoreCanvasController.Instance.AddNodeList(nodeInfo);
             }
         }
 
