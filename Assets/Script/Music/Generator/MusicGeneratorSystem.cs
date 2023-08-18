@@ -17,6 +17,8 @@ namespace Script.Music.Generator
 {
     public partial struct MusicNodeMouseInputGeneratorSystem : ISystem
     {
+        private int Total;
+        
         [BurstCompile(CompileSynchronously = true)]
         Camera GetCamera() => Camera.main;
 
@@ -26,6 +28,8 @@ namespace Script.Music.Generator
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
+            Total = 0;
+            
             state.RequireForUpdate<PhysicsWorldSingleton>();
             state.RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<GameManagerTag>();
@@ -141,6 +145,8 @@ namespace Script.Music.Generator
                 
                 var nodeInfo = new MusicNodeInfo()
                 {
+                    id = Total++,
+                    
                     nodeEntityType = (MusicNodeType)entityIndex,
                     judgePanelType = generatorAspect.JudgePanelType,
                 };

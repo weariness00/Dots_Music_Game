@@ -31,6 +31,11 @@ namespace Script.Music.Generator.Canvas
         private float _moveSecond = 0f;
         private float perfectTime = 0f;
 
+        private void Update()
+        {
+            UpdateNodeStruct();
+        }
+
         private void LateUpdate()
         {
             SetInterval();
@@ -65,6 +70,9 @@ namespace Script.Music.Generator.Canvas
                         
                         entityManager.RemoveComponent<MusicNodeInfoSingletonTag>(singletonNodeEntity);
                         entityManager.AddComponent<MusicNodeInfoSingletonTag>(selectNodeEntity);
+                        
+                        MusicNodeInfoCanvasController.Instance.SetNodeInfo(nodeStruct.Info);
+                        MusicNodeInfoCanvasController.Instance.SetNodeEntity(nodeStruct.Entity);
                     }
                 }
             }
@@ -170,14 +178,14 @@ namespace Script.Music.Generator.Canvas
         private IEnumerator FindNodeEntityCoroutine(MusicNodeStruct nodeStruct)
         {
             var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var entityArray = entityManager.CreateEntityQuery(typeof(MusicNodeAuthoring)).ToEntityArray(Allocator.Temp).ToArray();
             while (nodeStruct.Entity == Entity.Null)
             {
                 yield return null;
+                var entityArray = entityManager.CreateEntityQuery(typeof(MusicNodeAuthoring)).ToEntityArray(Allocator.Temp).ToArray();
                 foreach (var entity in entityArray)
                 {
                     var nodeAuthoring = entityManager.GetComponentData<MusicNodeAuthoring>(entity);
-                    if (nodeAuthoring.NodeInfo.order == nodeStruct.Info.order)
+                    if (nodeAuthoring.NodeInfo.id == nodeStruct.Info.id)
                     {
                         nodeStruct.Entity = entity;
                         yield break;
@@ -191,7 +199,8 @@ namespace Script.Music.Generator.Canvas
             var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             foreach (var nodeStruct in _nodeList)
             {
-                nodeStruct.Info = entityManager.GetComponentData<MusicNodeAuthoring>(nodeStruct.Entity).NodeInfo;
+                if(nodeStruct.Entity != Entity.Null)
+                    nodeStruct.Info = entityManager.GetComponentData<MusicNodeAuthoring>(nodeStruct.Entity).NodeInfo;
             }
         }
 

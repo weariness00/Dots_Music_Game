@@ -19,6 +19,7 @@ namespace Script.MusicNode
     [System.Serializable]
     public struct MusicNodeInfo
     {
+        public int id;
         public int order;
         
         public MusicNodeType nodeEntityType;

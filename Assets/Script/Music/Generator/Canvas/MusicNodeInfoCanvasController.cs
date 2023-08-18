@@ -55,7 +55,7 @@ namespace Script.Music.Generator.Canvas
                 nowPosition[2].text = nodeTransform.Position.z.ToString("F6");
             }
         }
-        
+
         public void SetNodeInfo(MusicNodeInfo nodeInfo)
         {
             StartCoroutine(nameof(SetInfoTime));
