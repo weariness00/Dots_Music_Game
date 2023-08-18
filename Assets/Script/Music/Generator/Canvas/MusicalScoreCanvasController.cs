@@ -1,19 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Script.JudgePanel;
 using Script.Manager;
 using Script.MusicNode;
 using Script.Utils;
+using Unity.Collections;
+using Unity.Entities;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Script.Music.Generator.Canvas
 {
-    public class MusicalScoreCanvasController : Singleton<MusicalScoreCanvasController>
+    public class MusicalScoreCanvasController : Singleton<MusicalScoreCanvasController>, IPointerClickHandler
     {
         [Space] 
         public Image beatImage;
-        public Vector3 beatMoveDirection;
         public RectTransform beatPerfectLineTransform;
         public GameObject beatParent;
 
@@ -35,6 +38,38 @@ namespace Script.Music.Generator.Canvas
             NodeImageControl();
         }
 
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                var go = eventData.pointerEnter;
+                if (go.tag == "Generate Node UI")
+                {
+                    var nodeStruct = _nodeList.Find((node) => node.GameObject.GetInstanceID().Equals(go.GetInstanceID()));
+                    if (nodeStruct != null)
+                    {
+                        var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+                        var singletonNodeEntity = entityManager.CreateEntityQuery(typeof(MusicNodeInfoSingletonTag)).GetSingletonEntity();
+                        var musicNodeQuery = entityManager.CreateEntityQuery(typeof(MusicNodeAuthoring));
+                        Entity selectNodeEntity = Entity.Null;
+
+                        foreach (var entity in musicNodeQuery.ToEntityArray(Allocator.Temp))
+                        {
+                            var nodeInfo = entityManager.GetComponentData<MusicNodeAuthoring>(entity).NodeInfo;
+                            if (nodeInfo.order == nodeStruct.Info.order)
+                            {
+                                selectNodeEntity = entity;
+                                break;
+                            }
+                        }
+                        
+                        entityManager.RemoveComponent<MusicNodeInfoSingletonTag>(singletonNodeEntity);
+                        entityManager.AddComponent<MusicNodeInfoSingletonTag>(selectNodeEntity);
+                    }
+                }
+            }
+        }
+        
         private void SetInterval()
         {
             float screenWidth = Screen.width;
@@ -86,6 +121,7 @@ namespace Script.Music.Generator.Canvas
 
         private class MusicNodeStruct
         {
+            public Entity Entity;
             public MusicNodeInfo Info;
 
             public GameObject GameObject;
@@ -131,8 +167,36 @@ namespace Script.Music.Generator.Canvas
             }
         }
 
-        public void AddNodeList(MusicNodeInfo nodeInfo)
+        private IEnumerator FindNodeEntityCoroutine(MusicNodeStruct nodeStruct)
         {
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var entityArray = entityManager.CreateEntityQuery(typeof(MusicNodeAuthoring)).ToEntityArray(Allocator.Temp).ToArray();
+            while (nodeStruct.Entity == Entity.Null)
+            {
+                yield return null;
+                foreach (var entity in entityArray)
+                {
+                    var nodeAuthoring = entityManager.GetComponentData<MusicNodeAuthoring>(entity);
+                    if (nodeAuthoring.NodeInfo.order == nodeStruct.Info.order)
+                    {
+                        nodeStruct.Entity = entity;
+                        yield break;
+                    }
+                }
+            }
+        }
+
+        public void UpdateNodeStruct()
+        {
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            foreach (var nodeStruct in _nodeList)
+            {
+                nodeStruct.Info = entityManager.GetComponentData<MusicNodeAuthoring>(nodeStruct.Entity).NodeInfo;
+            }
+        }
+
+        public void AddNodeList(MusicNodeInfo nodeInfo)
+        {   
             GameObject newNodeGo = null;
             switch (nodeInfo.judgePanelType)
             {
@@ -151,6 +215,7 @@ namespace Script.Music.Generator.Canvas
 
             var newMusicNodeStruct = new MusicNodeStruct()
             {
+                Entity = Entity.Null,
                 Info = nodeInfo,
 
                 GameObject = newNodeGo,
@@ -158,6 +223,8 @@ namespace Script.Music.Generator.Canvas
             };
 
             _nodeList.Add(newMusicNodeStruct);
+
+            StartCoroutine(FindNodeEntityCoroutine(newMusicNodeStruct));
         }
 
         public void RemoveNodeList(MusicNodeInfo nodeInfo)
@@ -166,10 +233,15 @@ namespace Script.Music.Generator.Canvas
 
             foreach (var node in _nodeList)
             {
-                if (node.Info.order == nodeInfo.order) removeStruct = node;
+                if (node.Info.order == nodeInfo.order)
+                {
+                    removeStruct = node;
+                    Destroy(removeStruct.GameObject);
+                    break;
+                }
             }
-
             _nodeList.Remove(removeStruct);
         }
+
     }
 }

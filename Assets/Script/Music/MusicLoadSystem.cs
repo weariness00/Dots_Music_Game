@@ -1,8 +1,8 @@
 ﻿using Script.JudgePanel;
 using Script.Manager;
 using Script.Music.Generator;
+using Script.Music.Generator.Canvas;
 using Script.MusicNode;
-using Script.MusicNode.Canvas;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;

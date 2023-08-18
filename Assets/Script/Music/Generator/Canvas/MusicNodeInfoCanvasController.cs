@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using Script.JudgePanel;
 using Script.Manager;
+using Script.MusicNode;
 using TMPro;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
-namespace Script.MusicNode.Canvas
+namespace Script.Music.Generator.Canvas
 {
     public class MusicNodeInfoCanvasController : MonoBehaviour
     {
@@ -101,6 +102,8 @@ namespace Script.MusicNode.Canvas
             SetNodeInfo(nodeAuthoring.NodeInfo);
             
             entityManager.SetComponentData(NodeEntity, nodeAuthoring);
+            
+            MusicalScoreCanvasController.Instance.UpdateNodeStruct();
         }
 
         public void ChangeNodePerfectTime()
@@ -138,6 +141,8 @@ namespace Script.MusicNode.Canvas
             SetNodeInfo(nodeInfo);
             
             entityManager.SetComponentData(NodeEntity, new MusicNodeAuthoring(){NodeInfo = nodeInfo});
+            
+            MusicalScoreCanvasController.Instance.UpdateNodeStruct();
         }
     }
 }

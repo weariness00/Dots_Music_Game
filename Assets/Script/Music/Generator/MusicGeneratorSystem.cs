@@ -4,7 +4,6 @@ using Script.JudgePanel;
 using Script.Manager;
 using Script.Music.Generator.Canvas;
 using Script.MusicNode;
-using Script.MusicNode.Canvas;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -78,14 +77,19 @@ namespace Script.Music.Generator
                 if (IsUIHit()) return;
                 nodeInfoCanvas.NodeEntity = Entity.Null;
 
-                if(isDelete) ecb.DestroyEntity(hitNode.Entity);
+                var nodeInfo = SystemAPI.GetComponent<MusicNodeAuthoring>(hitNode.Entity).NodeInfo;
+                if (isDelete)
+                {
+                    MusicalScoreCanvasController.Instance.RemoveNodeList(nodeInfo);
+                    ecb.DestroyEntity(hitNode.Entity);
+                }
                 else
                 {
                     foreach (var (tag, nodeInfoSingletonEntity) in SystemAPI.Query<MusicNodeInfoSingletonTag>().WithEntityAccess())
                         ecb.RemoveComponent<MusicNodeInfoSingletonTag>(nodeInfoSingletonEntity);
                     ecb.AddComponent<MusicNodeInfoSingletonTag>(hitNode.Entity);
                     
-                    nodeInfoCanvas.SetNodeInfo(SystemAPI.GetComponent<MusicNodeAuthoring>(hitNode.Entity).NodeInfo);
+                    nodeInfoCanvas.SetNodeInfo(nodeInfo);
                     nodeInfoCanvas.SetNodeEntity(hitNode.Entity);
                 }
                 return;
