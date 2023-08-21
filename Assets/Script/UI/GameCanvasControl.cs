@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Script.JudgePanel;
 using Script.Manager;
 using Script.Music;
@@ -17,8 +18,6 @@ namespace Script.UI
         public TMP_Text combo;
         public TMP_Text judge;
 
-        private EntityManager _entityManager;
-        private Entity _gmEntity;
         public void Awake()
         {
             if (Instance == null) Instance = this;
@@ -26,20 +25,35 @@ namespace Script.UI
 
         private void Start()
         {
-            _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            _gmEntity = _entityManager.CreateEntityQuery(typeof(GameManagerTag)).GetSingletonEntity();
+            StartCoroutine(nameof(MusicStartUpdateCoroutine));
         }
 
-        public void Update()
+        IEnumerator MusicStartUpdateCoroutine()
         {
-            bool isMusicStart = _entityManager.IsComponentEnabled<MusicStartTag>(_gmEntity);
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var gmEntity = Entity.Null;
+            while (gmEntity == Entity.Null)
+            {
+                yield return null;
+                var query = entityManager.CreateEntityQuery(typeof(GameManagerTag));
+                if(!query.IsEmpty) gmEntity = query.GetSingletonEntity();
+            }
 
-            if (isMusicStart == false) return;
+            bool isMusicStart = false;
+            while (isMusicStart == false)
+            {
+                yield return null;
+                isMusicStart = entityManager.IsComponentEnabled<MusicStartTag>(gmEntity);
+            }
 
-            var gmAuthoring = _entityManager.GetComponentData<GameManagerAuthoring>(_gmEntity);
-            score.text = gmAuthoring.Score.ToString();
-            combo.text = gmAuthoring.Combo.ToString();
-            if(gmAuthoring.JudgeType != JudgeType.None) judge.text = gmAuthoring.JudgeType.ToString();
+            while (true)
+            {
+                yield return null;
+                var gmAuthoring = entityManager.GetComponentData<GameManagerAuthoring>(gmEntity);
+                score.text = gmAuthoring.Score.ToString();
+                combo.text = gmAuthoring.Combo.ToString();
+                if(gmAuthoring.JudgeType != JudgeType.None) judge.text = gmAuthoring.JudgeType.ToString();
+            }
         }
     }
 }

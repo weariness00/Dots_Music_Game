@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = System.Object;
 
 namespace Script.Utils
 {
@@ -38,6 +40,30 @@ namespace Script.Utils
             }
         }
         protected void Bind<T>(GameObject _Object,Type type) where T : UnityEngine.Object  { Bind<T>(_Object, Enum.GetNames(type));  }
+
+        protected void BindAll<T>(GameObject _Object) where T : UnityEngine.Object
+        {
+            UnityEngine.Object[] objs;
+            var components = _Object.GetComponentsInChildren<T>();
+            int currentObjectIndex = 0;
+            
+            if (objectDictionary.ContainsKey(typeof(T)))
+            {
+                objs = objectDictionary[typeof(T)];
+                currentObjectIndex = objs.Length;
+                Array.Resize(ref objs, objs.Length + components.Length);
+                objectDictionary[typeof(T)] = objs;
+            }
+            else
+            {
+                objs = new UnityEngine.Object[components.Length];
+                objectDictionary.Add(typeof(T), objs);
+            }
+
+            for (int i = 0; i < components.Length; i++)
+                objs[i + currentObjectIndex] = components[i];
+            
+        }
         //protected void Bind<T>(Type type) where T : UnityEngine.Object{ Bind<T>(gameObject, type); }
         //protected void Bind<T>(string[] names) where T : UnityEngine.Object{ Bind<T>(gameObject, names); }
 

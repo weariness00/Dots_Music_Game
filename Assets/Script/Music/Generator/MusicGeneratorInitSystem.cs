@@ -38,8 +38,6 @@ namespace Script.Music.Generator
             
             ecb.RemoveComponent<MusicGeneratorNodeObjects>(entity);
             ecb.RemoveComponent<MusicGeneratorInitTag>(entity);
-
-            state.Enabled = false;
         }
     }
 }

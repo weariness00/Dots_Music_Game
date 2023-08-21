@@ -1,4 +1,5 @@
 ﻿using System;
+using Script.Scene;
 using Script.Utils;
 using UnityEngine;
 
@@ -16,6 +17,12 @@ namespace Script.Manager
         public Action UpdateCall;
         public Action LateUpdateCall;
         public Action OnGUICall;
+
+        private void Awake()
+        {
+            if(GameObject.FindObjectsOfType<Managers>().Length > 1)
+                Destroy(gameObject);
+        }
 
         private void Start()
         {

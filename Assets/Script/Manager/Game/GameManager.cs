@@ -7,25 +7,19 @@ namespace Script.Manager.Game
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
-
-        public EntityManager EntityManager;
-        public Entity Entity;
-
+        
         private void Awake()
         {
             if (Instance == null)
                 Instance = this;
         }
-
-        private void Start()
-        {
-            EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            Entity = EntityManager.CreateEntityQuery(typeof(GameManagerTag)).GetSingletonEntity();
-        }
         
         public void MusicStart()
         {
-            EntityManager.SetComponentEnabled<MusicStartTag>(Entity, true);
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var gmEntity = entityManager.CreateEntityQuery(typeof(GameManagerTag)).GetSingletonEntity();
+            
+            entityManager.SetComponentEnabled<MusicStartTag>(gmEntity, true);
             Managers.Sound.GetAudioSource(SoundType.BGM).Play();
         }
     }

@@ -35,9 +35,6 @@ namespace Script.Music.Generator.Canvas
 
         private int bpm = 1;
         
-        private EntityManager _entityManager;
-        private Entity _entity;
-
         private void Awake()
         {
             if (Instance == null) Instance = this;
@@ -45,9 +42,6 @@ namespace Script.Music.Generator.Canvas
 
         private void Start()
         {
-            _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            _entity = _entityManager.CreateEntityQuery(typeof(MusicGeneratorTag)).GetSingletonEntity();
-            
             musicBar.onValueChanged.AddListener(MusicBar);
             musicPlayAndStop.onValueChanged.AddListener(MusicPlayAndStop);
         }
@@ -67,7 +61,10 @@ namespace Script.Music.Generator.Canvas
                 return;
             }
             
-            var musicData = _entityManager.GetBuffer<MusicScriptableObjectData>(_entity).AsNativeArray();
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var entity = entityManager.CreateEntityQuery(typeof(MusicGeneratorTag)).GetSingletonEntity();
+
+            var musicData = entityManager.GetBuffer<MusicScriptableObjectData>(entity).AsNativeArray();
             musicData.Sort(new MusicNodeLenthToDestinationSort());
             
             var musicScriptableObject = ScriptableObject.CreateInstance<MusicScriptableObject>();
@@ -95,19 +92,25 @@ namespace Script.Music.Generator.Canvas
                 Debug.LogWarning($"{curPath}에\n{nameField.text}라는 이름의 Music ScriptableObject가 존재하지 않습니다.");
                 return;
             }
+            
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var entity = entityManager.CreateEntityQuery(typeof(MusicGeneratorTag)).GetSingletonEntity();
 
             bpmField.text = musicData.BPM_Speed.ToString(CultureInfo.CurrentCulture);
 
             var audioSource = Managers.Sound.GetAudioSource(SoundType.BGM);
             audioSource.clip = musicData.clip;
             
-            _entityManager.AddComponent<MusicLoadTag>(_entity);
-            _entityManager.AddComponentObject(_entity, new MusicLoadAuthoring(){MusicScriptableObject = musicData});
+            entityManager.AddComponent<MusicLoadTag>(entity);
+            entityManager.AddComponentObject(entity, new MusicLoadAuthoring(){MusicScriptableObject = musicData});
         }
 
         public void JudgPanelType()
         {
-            _entityManager.SetComponentData(_entity, new MusicGeneratorPanelTypeAuthoring(){PanelType = (JudgePanelType)judgePanelSelect.value});
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var entity = entityManager.CreateEntityQuery(typeof(MusicGeneratorTag)).GetSingletonEntity();
+            
+            entityManager.SetComponentData(entity, new MusicGeneratorPanelTypeAuthoring(){PanelType = (JudgePanelType)judgePanelSelect.value});
         }
 
         public void MusicPlayAndStop(bool isOn)
@@ -163,21 +166,28 @@ namespace Script.Music.Generator.Canvas
 
         public void ChangeBPM()
         {
-            var gmEntity = GameManager.Instance.Entity;
-            var gmAuthoring = _entityManager.GetComponentData<GameManagerAuthoring>(gmEntity);
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var gmEntity = entityManager.CreateEntityQuery(typeof(GameManagerTag)).GetSingletonEntity();
+            var gmAuthoring = entityManager.GetComponentData<GameManagerAuthoring>(gmEntity);
             bpm = int.Parse(bpmField.text);
             gmAuthoring.BPM = bpm;
-            _entityManager.SetComponentData(gmEntity, gmAuthoring);
+            entityManager.SetComponentData(gmEntity, gmAuthoring);
         }
 
         public void IsOnNodeDelete()
         {
-            _entityManager.SetComponentEnabled<MusicGeneratorDeleteTag>(_entity, nodeDeleteToggle.isOn); 
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var entity = entityManager.CreateEntityQuery(typeof(MusicGeneratorTag)).GetSingletonEntity();
+
+            entityManager.SetComponentEnabled<MusicGeneratorDeleteTag>(entity, nodeDeleteToggle.isOn); 
         }
 
         public void IsSpawnPerfect()
         {
-            _entityManager.SetComponentEnabled<MusicNodeSpawnPerfectLineTag>(_entity, spawnPerfectToggle.isOn); 
+            var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var entity = entityManager.CreateEntityQuery(typeof(MusicGeneratorTag)).GetSingletonEntity();
+
+            entityManager.SetComponentEnabled<MusicNodeSpawnPerfectLineTag>(entity, spawnPerfectToggle.isOn); 
         }
         
     }
